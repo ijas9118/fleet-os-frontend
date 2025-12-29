@@ -1,27 +1,14 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { Link, useNavigate } from "react-router-dom";
 import { authService } from "@/services/authService";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-
-const TenantRegisterSchema = z.object({
-  name: z.string().min(2, "Business name must be at least 2 characters"),
-  industry: z.string().optional(),
-  contactEmail: z.string().email("Invalid email address"),
-  contactPhone: z.string().optional(),
-  // Flattening address for simplification in form, will structure for API
-  addressLine1: z.string().optional(),
-  city: z.string().optional(),
-  state: z.string().optional(),
-  country: z.string().optional(),
-});
-
-type RegisterFormValues = z.infer<typeof TenantRegisterSchema>;
+import { TenantRegisterSchema } from "@/schemas/auth.schema";
+import type { RegisterFormValues } from "@/types/auth.types";
 
 export default function RegisterTenantPage() {
   const [isLoading, setIsLoading] = useState(false);

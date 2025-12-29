@@ -1,29 +1,19 @@
+import type { 
+  LoginFormValues, 
+  LoginResponse,
+  RegisterTenantResponse,
+  VerifyOtpResponse,
+  RefreshTokenResponse,
+  RegisterFormValues
+} from '@/types/auth.types';
 import { api } from './api';
 
-// Types based on Auth Service DTOs
-export interface LoginResponse {
-  message: string;
-  data: { accessToken: string };
-}
-
-export interface RegisterTenantResponse {
-  message: string;
-}
-
-export interface VerifyOtpResponse {
-  message: string;
-  result: unknown; // Using unknown for now, refine later
-}
-
-// Service methods
 export const authService = {
-  login: async (data: unknown) => {
+  login: async (data: LoginFormValues) => {
     return api.post<LoginResponse>('/auth/login', data);
   },
   
-  registerTenant: async (data: unknown) => {
-    // Ensure nested address object is strictly typed if needed, 
-    // but for now passing through as verified by Zod on frontend
+  registerTenant: async (data: RegisterFormValues) => {
     return api.post<RegisterTenantResponse>('/auth/register-tenant', data);
   },
 
@@ -48,10 +38,4 @@ export const authService = {
   }
 };
 
-export interface RefreshTokenResponse {
-  message: string;
-  tokens: {
-    accessToken: string;
-    refreshToken: string;
-  };
-}
+

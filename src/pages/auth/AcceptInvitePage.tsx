@@ -1,23 +1,14 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { authService } from "@/services/authService";
 import { Button } from "@/components/ui/button";
 import { PasswordInput } from "@/components/ui/password-input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-
-const AcceptInviteSchema = z.object({
-  password: z.string().min(8, "Password must be at least 8 characters"),
-  confirmPassword: z.string().min(8, "Confirm Password must be at least 8 characters"),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"],
-});
-
-type AcceptInviteFormValues = z.infer<typeof AcceptInviteSchema>;
+import { AcceptInviteSchema } from "@/schemas/auth.schema";
+import type { AcceptInviteFormValues } from "@/types/auth.types";
 
 export default function AcceptInvitePage() {
   const [searchParams] = useSearchParams();

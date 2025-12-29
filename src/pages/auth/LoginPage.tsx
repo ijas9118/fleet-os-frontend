@@ -1,31 +1,18 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { jwtDecode } from "jwt-decode";
-import { setAuth } from "@/store/slices/authSlice";
-import { authService } from "@/services/authService";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
-
-const LoginSchema = z.object({
-  email: z.email("Invalid email address"),
-  password: z.string().min(1, "Password is required"),
-});
-
-type LoginFormValues = z.infer<typeof LoginSchema>;
+import { useLogin } from "@/hooks/useLogin";
+import { LoginSchema } from "@/schemas/auth.schema";
+import type { LoginFormValues } from "@/types/auth.types";
 
 export default function LoginPage() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const { login, isLoading, error } = useLogin();
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(LoginSchema),
@@ -36,37 +23,7 @@ export default function LoginPage() {
   });
 
   async function onSubmit(data: LoginFormValues) {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await authService.login(data);
-      if (response.data?.data?.accessToken) {
-        const token = response.data.data.accessToken;
-        const decoded = jwtDecode<{ role?: string; email?: string; id?: string; tenantId?: string }>(token);
-        
-        dispatch(setAuth({ 
-          token, 
-          user: {
-            id: decoded.id,
-            email: decoded.email,
-            role: decoded.role,
-            tenantId: decoded.tenantId
-          }
-        }));
-
-        if (decoded.role === 'PLATFORM_ADMIN') {
-          navigate("/admin");
-        } else {
-          navigate("/");
-        }
-      }
-    } catch (err) {
-      const error = err as { response?: { data?: {error?: { message?: string }} } };
-      setError(error.response?.data?.error?.message || "Login failed. Please check your credentials.");
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
+    await login(data);
   }
 
   return (
