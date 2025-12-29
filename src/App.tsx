@@ -6,6 +6,7 @@ import LoginPage from "@/pages/auth/LoginPage";
 import RegisterTenantPage from "@/pages/auth/RegisterTenantPage";
 import VerifyOtpPage from "@/pages/auth/VerifyOtpPage";
 import AcceptInvitePage from "@/pages/auth/AcceptInvitePage";
+import AdminDashboard from "@/pages/admin/AdminDashboard";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<LandingPage />} />
+          <Route path="admin" element={<AdminDashboard />} />
         </Route>
         
         <Route path="/auth" element={<AuthLayout />}>

@@ -4,10 +4,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { jwtDecode } from "jwt-decode";
 import { setAuth } from "@/store/slices/authSlice";
 import { authService } from "@/services/authService";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
@@ -39,12 +41,28 @@ export default function LoginPage() {
     try {
       const response = await authService.login(data);
       if (response.data?.data?.accessToken) {
-        dispatch(setAuth({ token: response.data.data.accessToken }));
-        navigate("/"); // Redirect to dashboard/home
+        const token = response.data.data.accessToken;
+        const decoded = jwtDecode<{ role?: string; email?: string; id?: string; tenantId?: string }>(token);
+        
+        dispatch(setAuth({ 
+          token, 
+          user: {
+            id: decoded.id,
+            email: decoded.email,
+            role: decoded.role,
+            tenantId: decoded.tenantId
+          }
+        }));
+
+        if (decoded.role === 'PLATFORM_ADMIN') {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
       }
     } catch (err) {
-      const error = err as { response?: { data?: { message?: string } } };
-      setError(error.response?.data?.message || "Login failed. Please check your credentials.");
+      const error = err as { response?: { data?: {error?: { message?: string }} } };
+      setError(error.response?.data?.error?.message || "Login failed. Please check your credentials.");
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -81,7 +99,7 @@ export default function LoginPage() {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type="password" {...field} disabled={isLoading} />
+                    <PasswordInput {...field} disabled={isLoading} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -41,5 +41,17 @@ export const authService = {
   
   logout: async () => {
     return api.post('/auth/logout');
+  },
+
+  refreshToken: async () => {
+    return api.post<RefreshTokenResponse>('/auth/refresh');
   }
 };
+
+export interface RefreshTokenResponse {
+  message: string;
+  tokens: {
+    accessToken: string;
+    refreshToken: string;
+  };
+}
