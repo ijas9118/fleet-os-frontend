@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useDispatch } from "react-redux";
+import { setAuth } from "@/store/slices/authSlice";
 import { authService } from "@/services/authService";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,7 +23,7 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  const setAuth = useAuthStore((state) => state.setAuth);
+  const dispatch = useDispatch();
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(LoginSchema),
@@ -38,7 +39,7 @@ export default function LoginPage() {
     try {
       const response = await authService.login(data);
       if (response.data?.data?.accessToken) {
-        setAuth(response.data.data.accessToken);
+        dispatch(setAuth({ token: response.data.data.accessToken }));
         navigate("/"); // Redirect to dashboard/home
       }
     } catch (err) {
