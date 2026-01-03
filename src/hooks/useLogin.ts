@@ -34,6 +34,8 @@ export function useLogin() {
 
         if (decoded.role === 'PLATFORM_ADMIN') {
           navigate("/admin");
+        } else if (decoded.role === 'TENANT_ADMIN') {
+          navigate("/tenant/admin");
         } else {
           navigate("/");
         }

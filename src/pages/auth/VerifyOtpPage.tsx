@@ -42,6 +42,7 @@ export default function VerifyOtpPage() {
         otp: data.otp,
         type: type,
       });
+      
       // Verification successful, redirect to login
       navigate("/auth/login", { replace: true });
     } catch (err) {

@@ -6,8 +6,8 @@ import {
   Settings, 
   Users, 
 } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import {
@@ -39,26 +39,13 @@ import {
   SidebarRail,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { authService } from "@/services/authService";
+import { useLogout } from "@/hooks/useLogout";
 import type { RootState } from "@/store";
-import { clearAuth } from "@/store/slices/authSlice";
 
 export default function AdminLayout() {
   const location = useLocation();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const { logout } = useLogout();
   const user = useSelector((state: RootState) => state.auth.user);
-
-  const handleLogout = async () => {
-    try {
-      await authService.logout();
-    } catch (error) {
-      console.error("Logout failed", error);
-    } finally {
-      dispatch(clearAuth());
-      navigate("/auth/login");
-    }
-  };
 
   const menuItems = [
     {
@@ -158,7 +145,7 @@ export default function AdminLayout() {
                   align="end"
                   sideOffset={4}
                 >
-                  <DropdownMenuItem onClick={handleLogout} className="text-destructive focus:text-destructive">
+                  <DropdownMenuItem onClick={logout} className="text-destructive focus:text-destructive">
                     <LogOut className="mr-2 h-4 w-4" />
                     Sign out
                   </DropdownMenuItem>

@@ -1,9 +1,11 @@
 import type { 
+  AdminRegisterResponse,
   LoginFormValues, 
   LoginResponse,
   PaginatedResult,
   PaginationParams,
   RefreshTokenResponse,
+  RegisterAdminRequest,
   RegisterTenantRequest,
   RegisterTenantResponse,
   TenantResponse,
@@ -19,6 +21,10 @@ export const authService = {
   
   registerTenant: async (data: RegisterTenantRequest) => {
     return api.post<RegisterTenantResponse>('/auth/register-tenant', data);
+  },
+
+  registerTenantAdmin: async (data: RegisterAdminRequest) => {
+    return api.post<AdminRegisterResponse>('/auth/register-admin', data);
   },
 
   verifyOtp: async (data: { email: string; otp: string; type: 'tenant' | 'user' }) => {

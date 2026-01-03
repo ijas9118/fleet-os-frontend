@@ -3,13 +3,14 @@ import * as z from "zod";
 import { 
   AcceptInviteSchema, 
   LoginSchema, 
-  TenantRegisterSchema, 
+  TenantAdminRegisterSchema,  TenantRegisterSchema, 
   VerifyOtpSchema} from "@/schemas/auth.schema";
 
 export type LoginFormValues = z.infer<typeof LoginSchema>;
 export type RegisterFormValues = z.infer<typeof TenantRegisterSchema>;
 export type VerifyOtpFormValues = z.infer<typeof VerifyOtpSchema>;
 export type AcceptInviteFormValues = z.infer<typeof AcceptInviteSchema>;
+export type RegisterAdminFormValues = z.infer<typeof TenantAdminRegisterSchema>;
 
 export interface RegisterTenantRequest {
   name: string;
@@ -23,6 +24,21 @@ export interface RegisterTenantRequest {
     postalCode?: string;
     country?: string;
   };
+}
+
+export interface RegisterAdminRequest {
+  tenantId: string;
+  name: string;
+  email: string;
+  password: string;
+}
+
+export interface AdminRegisterResponse {
+    message: string;
+    data: {
+        userId: string;
+        tenantId: string;
+    }
 }
 
 export interface LoginResponse {
