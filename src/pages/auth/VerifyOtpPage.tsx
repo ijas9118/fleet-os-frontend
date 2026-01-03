@@ -1,13 +1,14 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocation, useNavigate } from "react-router-dom";
-import { authService } from "@/services/authService";
+
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { VerifyOtpSchema } from "@/schemas/auth.schema";
+import { authService } from "@/services/authService";
 import type { VerifyOtpFormValues } from "@/types/auth.types";
 // Fallback to standard Input for OTP if component missing
 

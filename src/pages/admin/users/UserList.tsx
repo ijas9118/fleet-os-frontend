@@ -1,7 +1,8 @@
+import type { ColumnDef } from "@tanstack/react-table";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "@/components/ui/data-table";
-import type { ColumnDef } from "@tanstack/react-table";
 
 interface User {
   id: number;

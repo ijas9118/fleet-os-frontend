@@ -1,14 +1,15 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router-dom";
-import { authService } from "@/services/authService";
+
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { TenantRegisterSchema } from "@/schemas/auth.schema";
-import type { RegisterFormValues } from "@/types/auth.types";
+import { authService } from "@/services/authService";
+import type { RegisterFormValues, RegisterTenantRequest } from "@/types/auth.types";
 
 export default function RegisterTenantPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,6 +26,7 @@ export default function RegisterTenantPage() {
       addressLine1: "",
       city: "",
       state: "",
+      postalCode: "",
       country: "",
     },
   });
@@ -34,7 +36,7 @@ export default function RegisterTenantPage() {
     setError(null);
     try {
       // Structure data for API match
-      const apiPayload = {
+      const apiPayload: RegisterTenantRequest = {
         name: data.name,
         industry: data.industry,
         contactEmail: data.contactEmail,
@@ -43,6 +45,7 @@ export default function RegisterTenantPage() {
           line1: data.addressLine1,
           city: data.city,
           state: data.state,
+          postalCode: data.postalCode,
           country: data.country
         }
       };
@@ -141,7 +144,7 @@ export default function RegisterTenantPage() {
                   </FormItem>
                 )}
               />
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 gap-2">
                  <FormField
                   control={form.control}
                   name="city"
@@ -171,6 +174,17 @@ export default function RegisterTenantPage() {
                     <FormItem>
                       <FormControl>
                         <Input placeholder="Country" {...field} disabled={isLoading} />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                 <FormField
+                  control={form.control}
+                  name="postalCode"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Zip Code" {...field} disabled={isLoading} />
                       </FormControl>
                     </FormItem>
                   )}

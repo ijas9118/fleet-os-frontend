@@ -1,13 +1,14 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { authService } from "@/services/authService";
+
 import { Button } from "@/components/ui/button";
-import { PasswordInput } from "@/components/ui/password-input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { PasswordInput } from "@/components/ui/password-input";
 import { AcceptInviteSchema } from "@/schemas/auth.schema";
+import { authService } from "@/services/authService";
 import type { AcceptInviteFormValues } from "@/types/auth.types";
 
 export default function AcceptInvitePage() {

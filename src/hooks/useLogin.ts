@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { jwtDecode } from "jwt-decode";
-import { setAuth } from "@/store/slices/authSlice";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { authService } from "@/services/authService";
+import { setAuth } from "@/store/slices/authSlice";
 import type { LoginFormValues } from "@/types/auth.types";
 
 export function useLogin() {

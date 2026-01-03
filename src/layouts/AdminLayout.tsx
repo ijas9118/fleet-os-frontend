@@ -1,31 +1,15 @@
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { 
-  LayoutDashboard, 
-  Users, 
   Building2, 
-  Settings, 
-  LogOut, 
   CheckCircle,
+  LayoutDashboard, 
+  LogOut, 
+  Settings, 
+  Users, 
 } from "lucide-react";
-import { clearAuth } from "@/store/slices/authSlice";
-import { authService } from "@/services/authService";
-import type { RootState } from "@/store";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarProvider,
-  SidebarTrigger,
-  SidebarRail,
-} from "@/components/ui/sidebar"
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -40,7 +24,24 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarRail,
+  SidebarTrigger,
+} from "@/components/ui/sidebar"
+import { authService } from "@/services/authService";
+import type { RootState } from "@/store";
+import { clearAuth } from "@/store/slices/authSlice";
 
 export default function AdminLayout() {
   const location = useLocation();

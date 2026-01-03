@@ -8,17 +8,18 @@ export const LoginSchema = z.object({
 export const TenantRegisterSchema = z.object({
   name: z.string().min(2, "Business name must be at least 2 characters"),
   industry: z.string().optional(),
-  contactEmail: z.string().email("Invalid email address"),
+  contactEmail: z.email("Invalid email address"),
   contactPhone: z.string().optional(),
   // Flattening address for simplification in form, will structure for API
   addressLine1: z.string().optional(),
   city: z.string().optional(),
   state: z.string().optional(),
+  postalCode: z.string().optional(),
   country: z.string().optional(),
 });
 
 export const VerifyOtpSchema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   otp: z.string().min(6, "OTP must be 6 characters"),
 });
 

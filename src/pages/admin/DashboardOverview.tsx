@@ -1,5 +1,6 @@
+import { AlertCircle,Building2, Users } from "lucide-react";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Building2, Users, AlertCircle } from "lucide-react";
 
 export default function DashboardOverview() {
   // Dummy stats

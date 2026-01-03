@@ -1,7 +1,8 @@
-import { store } from '@/store';
-import { clearAuth, setAuth } from '@/store/slices/authSlice';
 import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
+
+import { store } from '@/store';
+import { clearAuth, setAuth } from '@/store/slices/authSlice';
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1',
@@ -26,21 +27,23 @@ api.interceptors.response.use(
     const originalRequest = error.config;
     
     // Check if error is 401 and we haven't retried yet
-    // Also ensure we don't get into an infinite loop if the refresh endpoint itself returns 401
     if (error.response?.status === 401 && !originalRequest._retry && !originalRequest.url?.includes('/auth/refresh')) {
       originalRequest._retry = true;
       
       try {
-        // Use a new axios instance or the global axios to avoid this interceptor
+        // Use a new axios instance to avoid circular dependency
         const response = await axios.post(
           `${import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1'}/auth/refresh`,
           {},
-          { withCredentials: true }
+          { 
+            withCredentials: true 
+          }
         );
 
         const { accessToken } = response.data.tokens;
         
         if (accessToken) {
+          // Decode token to update store
           const decoded = jwtDecode<{ role?: string; email?: string; id?: string; tenantId?: string }>(accessToken);
           
           store.dispatch(setAuth({ 
@@ -62,7 +65,7 @@ api.interceptors.response.use(
       } catch (refreshError) {
         // If refresh fails, log out
         store.dispatch(clearAuth());
-        // Optionally redirect to login page, though clearing auth state might trigger a redirect if protected route
+        window.location.href = '/auth/login';
         return Promise.reject(refreshError);
       }
     }
