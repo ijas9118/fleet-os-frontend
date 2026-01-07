@@ -5,8 +5,9 @@ import { Navigate, Outlet } from 'react-router-dom';
 import type { RootState } from '@/store';
 import { clearAuth } from '@/store/slices/authSlice';
 
-export const ProtectedRoute = () => {
-    const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+// Basic role-based protection
+export const ProtectedRoute = ({ requiredRole }: { requiredRole?: string }) => {
+    const { isAuthenticated, user } = useSelector((state: RootState) => state.auth);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -18,6 +19,13 @@ export const ProtectedRoute = () => {
 
     if (!isAuthenticated) {
         return <Navigate to="/auth/login" replace />;
+    }
+
+    if (requiredRole && user?.role !== requiredRole) {
+        // Redirect to appropriate dashboard based on actual role or home
+        if (user?.role === 'PLATFORM_ADMIN') return <Navigate to="/admin" replace />;
+        if (user?.role === 'TENANT_ADMIN') return <Navigate to="/tenant" replace />;
+        return <Navigate to="/" replace />;
     }
 
     return <Outlet />;

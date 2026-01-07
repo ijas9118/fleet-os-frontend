@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import AdminLayout from "@/layouts/AdminLayout";
 import { AuthLayout } from "@/layouts/AuthLayout";
 import { MainLayout } from "@/layouts/MainLayout";
+import TenantLayout from "@/layouts/TenantLayout";
 import DashboardOverview from "@/pages/admin/DashboardOverview";
 import TenantList from "@/pages/admin/tenants/TenantList";
 import TenantVerify from "@/pages/admin/tenants/TenantVerify";
@@ -33,8 +34,17 @@ export const AppRoutes = () => {
              </Route>
           </Route>
 
-          <Route path="/tenant" element={<ProtectedRoute />}>
-            <Route path="admin" element={<TenantDashboard />} />
+          <Route path="/tenant" element={<ProtectedRoute requiredRole="TENANT_ADMIN" />}>
+            <Route element={<TenantLayout />}>
+              <Route index element={<TenantDashboard />} />
+              {/* Placeholders for other routes */}
+              <Route path="shipments" element={<div>Shipments</div>} />
+              <Route path="ops-managers" element={<div>Ops Managers</div>} />
+              <Route path="warehouse-managers" element={<div>Warehouse Managers</div>} />
+              <Route path="fleet/drivers" element={<div>Drivers</div>} />
+              <Route path="fleet/vehicles" element={<div>Vehicles</div>} />
+              <Route path="settings" element={<div>Settings</div>} />
+            </Route>
           </Route>
           
           <Route path="/auth" element={<PublicRoute />}>

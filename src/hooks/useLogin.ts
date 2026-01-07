@@ -20,7 +20,7 @@ export function useLogin() {
       const response = await authService.login(data);
       if (response.data?.data?.accessToken) {
         const token = response.data.data.accessToken;
-        const decoded = jwtDecode<{ role?: string; email?: string; id?: string; tenantId?: string }>(token);
+        const decoded = jwtDecode<{ role?: string; email?: string; id?: string; tenantId?: string; tenantName?: string }>(token);
         
         dispatch(setAuth({ 
           token, 
@@ -28,14 +28,17 @@ export function useLogin() {
             id: decoded.id,
             email: decoded.email,
             role: decoded.role,
-            tenantId: decoded.tenantId
+            tenant: decoded.tenantId ? {
+              id: decoded.tenantId,
+              name: decoded.tenantName || 'Unknown Tenant'
+            } : undefined
           }
         }));
 
         if (decoded.role === 'PLATFORM_ADMIN') {
           navigate("/admin");
         } else if (decoded.role === 'TENANT_ADMIN') {
-          navigate("/tenant/admin");
+          navigate("/tenant");
         } else {
           navigate("/");
         }

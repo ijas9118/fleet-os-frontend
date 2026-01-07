@@ -40,11 +40,11 @@ api.interceptors.response.use(
           }
         );
 
-        const { accessToken } = response.data.tokens;
+        const { accessToken } = response.data.data;
         
         if (accessToken) {
           // Decode token to update store
-          const decoded = jwtDecode<{ role?: string; email?: string; id?: string; tenantId?: string }>(accessToken);
+          const decoded = jwtDecode<{ role?: string; email?: string; id?: string; tenantId?: string; tenantName?: string }>(accessToken);
           
           store.dispatch(setAuth({ 
             token: accessToken, 
@@ -52,7 +52,10 @@ api.interceptors.response.use(
               id: decoded.id,
               email: decoded.email,
               role: decoded.role,
-              tenantId: decoded.tenantId
+              tenant: decoded.tenantId ? {
+                id: decoded.tenantId,
+                name: decoded.tenantName || 'Unknown Tenant' 
+              } : undefined
             }
           }));
 

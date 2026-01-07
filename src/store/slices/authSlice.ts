@@ -4,7 +4,10 @@ interface User {
   id?: string;
   email?: string;
   role?: string;
-  tenantId?: string;
+  tenant?: {
+    id: string;
+    name: string;
+  };
 }
 
 interface AuthState {

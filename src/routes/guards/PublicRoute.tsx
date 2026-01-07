@@ -10,7 +10,7 @@ export const PublicRoute = () => {
             return <Navigate to="/admin" replace />;
         }
         if (user?.role === 'TENANT_ADMIN') {
-            return <Navigate to="/tenant/admin" replace />;
+            return <Navigate to="/tenant" replace />;
         }
         return <Navigate to="/" replace />;
     }
