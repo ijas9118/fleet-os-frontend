@@ -18,6 +18,7 @@ export default function TenantVerify() {
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 500);
   const [rejectId, setRejectId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     setPagination({
@@ -30,6 +31,7 @@ export default function TenantVerify() {
 
   const fetchTenants = useCallback(async () => {
     setLoading(true);
+    setError(null);
     try {
       const params = {
         page: pagination.pageIndex + 1,
@@ -52,8 +54,8 @@ export default function TenantVerify() {
       }));
       setPendingTenants(mappedTenants);
       setPageCount(meta.totalPages);
-    } catch (error) {
-      console.error("Failed to fetch tenants:", error);
+    } catch (error: any) {
+      setError(error?.response?.data?.message || "Failed to fetch tenants");
     } finally {
       setLoading(false);
     }
@@ -63,22 +65,26 @@ export default function TenantVerify() {
     fetchTenants();
   }, [fetchTenants]);
 
-  const handleApprove = async (id: string) => {
+  const handleApprove = async (tenant: PendingTenant) => {
     try {
-      await authService.verifyTenant(id);
-      setPendingTenants((prev) => prev.filter((t) => t.id !== id));
-    } catch (error) {
-      console.error("Failed to approve tenant:", error);
+      await authService.verifyTenant(tenant.id);
+      setPendingTenants((prev) => prev.filter((t) => t.id !== tenant.id));
+      return { success: true, tenantName: tenant.name };
+    } catch (error: any) {
+      return { success: false, error: error?.response?.data?.message || "Failed to approve tenant" };
     }
   };
 
   const confirmReject = async () => {
-    if (!rejectId) return;
+    if (!rejectId) return { success: false, error: "No tenant selected" };
+    
+    const tenant = pendingTenants.find(t => t.id === rejectId);
     try {
       await authService.rejectTenant(rejectId);
       setPendingTenants((prev) => prev.filter((t) => t.id !== rejectId));
-    } catch (error) {
-      console.error("Failed to reject tenant:", error);
+      return { success: true, tenantName: tenant?.name || "Tenant" };
+    } catch (error: any) {
+      return { success: false, error: error?.response?.data?.message || "Failed to reject tenant" };
     } finally {
       setRejectId(null);
     }
@@ -93,6 +99,7 @@ export default function TenantVerify() {
     <TenantVerifyPresenter
       tenants={pendingTenants}
       loading={loading}
+      error={error}
       activeTab={activeTab}
       onTabChange={setActiveTab}
       pagination={pagination}

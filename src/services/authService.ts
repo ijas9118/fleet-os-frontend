@@ -9,6 +9,7 @@ import type {
   RegisterTenantRequest,
   RegisterTenantResponse,
   TenantResponse,
+  UserResponse,
   VerifyOtpResponse,
 } from '@/types/auth.types';
 
@@ -20,7 +21,7 @@ export const authService = {
   },
   
   registerTenant: async (data: RegisterTenantRequest) => {
-    return api.post<RegisterTenantResponse>('/auth/register-tenant', data);
+    return api.post<RegisterTenantResponse>('/tenants/register', data);
   },
 
   registerTenantAdmin: async (data: RegisterAdminRequest) => {
@@ -48,24 +49,36 @@ export const authService = {
   },
 
   getPendingTenants: async (params?: PaginationParams) => {
-    return api.get<{ result: PaginatedResult<TenantResponse> }>('/auth/tenants/pending', { params });
+    return api.get<{ result: PaginatedResult<TenantResponse> }>('/tenants/pending', { params });
   },
 
   getTenants: async (params?: PaginationParams) => {
-    return api.get<{ result: PaginatedResult<TenantResponse> }>('/auth/tenants', { params });
+    return api.get<{ result: PaginatedResult<TenantResponse> }>('/tenants', { params });
   },
 
   getRejectedTenants: async (params?: PaginationParams) => {
-    return api.get<{ result: PaginatedResult<TenantResponse> }>('/auth/tenants/rejected', { params });
+    return api.get<{ result: PaginatedResult<TenantResponse> }>('/tenants/rejected', { params });
   },
 
   verifyTenant: async (tenantId: string) => {
-    return api.post(`/auth/verify-tenant`, { tenantId });
+    return api.post(`/tenants/verify`, { tenantId });
   },
 
   rejectTenant: async (tenantId: string) => {
-    return api.post(`/auth/reject-tenant`, { tenantId });
-  }
+    return api.post(`/tenants/reject`, { tenantId });
+  },
+
+  getUsers: async (params?: PaginationParams) => {
+    return api.get<{ result: PaginatedResult<UserResponse> }>('/users', { params });
+  },
+
+  blockUser: async (userId: string) => {
+    return api.post('/users/block', { userId });
+  },
+
+  unblockUser: async (userId: string) => {
+    return api.post('/users/unblock', { userId });
+  },
 };
 
 

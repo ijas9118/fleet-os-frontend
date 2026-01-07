@@ -80,10 +80,24 @@ export interface TenantResponse {
   createdAt: string;
 }
 
+export interface UserResponse {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  tenantId?: string;
+  isActive: boolean;
+  createdAt: string;
+  lastLoginAt?: string;
+}
+
 export interface PaginationParams {
   page?: number;
   limit?: number;
   search?: string;
+  role?: string;
+  tenantId?: string;
+  isActive?: string;
 }
 
 export interface PaginatedResult<T> {

@@ -86,7 +86,7 @@ export const getTenantListColumns = (): ColumnDef<Tenant>[] => [
 
 interface TenantVerifyColumnsProps {
   activeTab: "pending" | "rejected";
-  onApprove: (id: string) => void;
+  onApprove: (tenant: PendingTenant) => void;
   onReject: (id: string) => void;
 }
 
@@ -140,7 +140,7 @@ export const getTenantVerifyColumns = ({
               <Button 
                 size="sm" 
                 className="bg-emerald-600 hover:bg-emerald-700 h-8 px-2"
-                onClick={() => onApprove(row.original.id)}
+                onClick={() => onApprove(row.original)}
               >
                 <Check className="w-4 h-4 mr-1" />
                 Approve

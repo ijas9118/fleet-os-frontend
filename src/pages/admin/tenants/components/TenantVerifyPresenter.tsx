@@ -1,5 +1,6 @@
 import type { OnChangeFn,PaginationState } from "@tanstack/react-table";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { toast } from "sonner";
 
 import { ConfirmationModal } from "@/components/common/ConfirmationModal";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,6 +13,7 @@ import { getTenantVerifyColumns } from "./TenantColumns";
 interface TenantVerifyPresenterProps {
   tenants: PendingTenant[];
   loading: boolean;
+  error: string | null;
   activeTab: "pending" | "rejected";
   onTabChange: (tab: "pending" | "rejected") => void;
   pagination: PaginationState;
@@ -19,16 +21,17 @@ interface TenantVerifyPresenterProps {
   onPaginationChange: OnChangeFn<PaginationState>;
   search: string;
   onSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onApprove: (id: string) => void;
+  onApprove: (tenant: PendingTenant) => Promise<{ success: boolean; tenantName?: string; error?: string }>;
   onReject: (id: string) => void;
   rejectId: string | null;
-  onRejectConfirm: () => void;
+  onRejectConfirm: () => Promise<{ success: boolean; tenantName?: string; error?: string }>;
   onRejectCancel: (open: boolean) => void;
 }
 
 export function TenantVerifyPresenter({
   tenants,
   loading,
+  error,
   activeTab,
   onTabChange,
   pagination,
@@ -42,9 +45,35 @@ export function TenantVerifyPresenter({
   onRejectConfirm,
   onRejectCancel,
 }: TenantVerifyPresenterProps) {
+  
+  // Show error toast when error state changes
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
+
+  const handleApprove = async (tenant: PendingTenant) => {
+    const result = await onApprove(tenant);
+    if (result.success) {
+      toast.success(`${result.tenantName} has been approved successfully`);
+    } else {
+      toast.error(result.error || "Failed to approve tenant");
+    }
+  };
+
+  const handleRejectConfirm = async () => {
+    const result = await onRejectConfirm();
+    if (result.success) {
+      toast.success(`${result.tenantName} has been rejected`);
+    } else {
+      toast.error(result.error || "Failed to reject tenant");
+    }
+  };
+
   const columns = useMemo(() => getTenantVerifyColumns({
     activeTab,
-    onApprove,
+    onApprove: handleApprove,
     onReject,
   }), [activeTab, onApprove, onReject]);
 
@@ -121,7 +150,7 @@ export function TenantVerifyPresenter({
         description="Are you sure you want to reject this tenant? This action cannot be undone."
         confirmText="Reject"
         variant="destructive"
-        onConfirm={onRejectConfirm}
+        onConfirm={handleRejectConfirm}
       />
     </div>
   );
