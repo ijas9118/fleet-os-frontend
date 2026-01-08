@@ -227,6 +227,7 @@ export function UserListPresenter({
             <>
               Are you sure you want to block <strong>{confirmModal.user?.name}</strong>?
               <br />
+              {/* eslint-disable-next-line react/no-unescaped-entities */}
               They will be immediately logged out and won't be able to access the system.
             </>
           ) : (

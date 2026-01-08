@@ -49,7 +49,16 @@ import { useLogout } from "@/hooks/useLogout";
 import type { RootState } from "@/store";
 
 // Simple SubMenu component to handle toggle state
-function SidebarSubMenu({ item, location }: { item: any; location: any }) {
+interface SidebarSubMenuProps {
+  item: {
+    title: string;
+    icon: React.ComponentType;
+    submenu: Array<{ title: string; path: string }>;
+  };
+  location: { pathname: string };
+}
+
+function SidebarSubMenu({ item, location }: SidebarSubMenuProps) {
   const [isOpen, setIsOpen] = useState(true);
   
   return (
@@ -61,7 +70,7 @@ function SidebarSubMenu({ item, location }: { item: any; location: any }) {
       </SidebarMenuButton>
       {isOpen && (
         <SidebarMenuSub>
-            {item.submenu.map((subItem: any) => (
+            {item.submenu.map((subItem: { title: string; path: string }) => (
                 <SidebarMenuSubItem key={subItem.path}>
                     <SidebarMenuSubButton asChild isActive={location.pathname === subItem.path}>
                         <Link to={subItem.path}>

@@ -75,7 +75,7 @@ export function TenantVerifyPresenter({
     activeTab,
     onApprove: handleApprove,
     onReject,
-  }), [activeTab, onApprove, onReject]);
+  }), [activeTab, handleApprove, onReject]);
 
   return (
     <div className="space-y-6">

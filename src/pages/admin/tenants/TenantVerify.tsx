@@ -54,8 +54,9 @@ export default function TenantVerify() {
       }));
       setPendingTenants(mappedTenants);
       setPageCount(meta.totalPages);
-    } catch (error: any) {
-      setError(error?.response?.data?.message || "Failed to fetch tenants");
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : "Failed to fetch tenants";
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -70,8 +71,9 @@ export default function TenantVerify() {
       await authService.verifyTenant(tenant.id);
       setPendingTenants((prev) => prev.filter((t) => t.id !== tenant.id));
       return { success: true, tenantName: tenant.name };
-    } catch (error: any) {
-      return { success: false, error: error?.response?.data?.message || "Failed to approve tenant" };
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : "Failed to approve tenant";
+      return { success: false, error: message };
     }
   };
 
@@ -83,8 +85,9 @@ export default function TenantVerify() {
       await authService.rejectTenant(rejectId);
       setPendingTenants((prev) => prev.filter((t) => t.id !== rejectId));
       return { success: true, tenantName: tenant?.name || "Tenant" };
-    } catch (error: any) {
-      return { success: false, error: error?.response?.data?.message || "Failed to reject tenant" };
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : "Failed to reject tenant";
+      return { success: false, error: message };
     } finally {
       setRejectId(null);
     }

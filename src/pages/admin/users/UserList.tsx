@@ -60,7 +60,7 @@ export default function UserList() {
     setLoading(true);
     setError(null);
     try {
-      const params: any = {
+      const params: Record<string, string | number> = {
         page: pagination.pageIndex + 1,
         limit: pagination.pageSize,
       };
@@ -96,8 +96,9 @@ export default function UserList() {
       
       setUsers(mappedUsers);
       setPageCount(meta.totalPages);
-    } catch (error: any) {
-      setError(error?.response?.data?.message || "Failed to load users");
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : "Failed to load users";
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -168,9 +169,10 @@ export default function UserList() {
       setConfirmModal({ open: false, type: "block", user: null, loading: false });
       fetchUsers();
       return { success: true, userName: confirmModal.user.name, action: confirmModal.type };
-    } catch (error: any) {
+    } catch (error: unknown) {
       setConfirmModal((prev) => ({ ...prev, loading: false }));
-      return { success: false, error: error?.response?.data?.message || `Failed to ${confirmModal.type} user` };
+      const message = error instanceof Error ? error.message : `Failed to ${confirmModal.type} user`;
+      return { success: false, error: message };
     }
   };
 
