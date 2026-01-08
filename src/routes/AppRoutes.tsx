@@ -14,6 +14,8 @@ import RegisterAdminPage from "@/pages/auth/RegisterAdminPage";
 import RegisterTenantPage from "@/pages/auth/RegisterTenantPage";
 import VerifyOtpPage from "@/pages/auth/VerifyOtpPage";
 import TenantDashboard from "@/pages/dashboard/TenantDashboard";
+import WarehouseDetail from "@/pages/dashboard/warehouses/WarehouseDetail";
+import WarehouseList from "@/pages/dashboard/warehouses/WarehouseList";
 import { LandingPage } from "@/pages/LandingPage";
 import { ProtectedRoute } from "@/routes/guards/ProtectedRoute";
 import { PublicRoute } from "@/routes/guards/PublicRoute";
@@ -37,6 +39,8 @@ export const AppRoutes = () => {
           <Route path="/tenant" element={<ProtectedRoute requiredRole="TENANT_ADMIN" />}>
             <Route element={<TenantLayout />}>
               <Route index element={<TenantDashboard />} />
+              <Route path="warehouses" element={<WarehouseList />} />
+              <Route path="warehouses/:id" element={<WarehouseDetail />} />
               {/* Placeholders for other routes */}
               <Route path="shipments" element={<div>Shipments</div>} />
               <Route path="ops-managers" element={<div>Ops Managers</div>} />

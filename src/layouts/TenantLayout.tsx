@@ -89,6 +89,11 @@ export default function TenantLayout() {
       exact: true
     },
     {
+      title: "Warehouses",
+      icon: Box,
+      path: "/tenant/warehouses",
+    },
+    {
       title: "Shipments",
       icon: Package,
       path: "/tenant/shipments",
@@ -100,7 +105,7 @@ export default function TenantLayout() {
     },
     {
       title: "Warehouse Managers",
-      icon: Box,
+      icon: Users2,
       path: "/tenant/warehouse-managers",
     },
     {
