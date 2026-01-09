@@ -3,6 +3,7 @@ import {
   LayoutDashboard, 
   LogOut, 
   Package, 
+  Package2,
   Settings, 
   Truck, 
   Users2
@@ -101,6 +102,11 @@ export default function TenantLayout() {
       title: "Warehouses",
       icon: Box,
       path: "/tenant/warehouses",
+    },
+    {
+      title: "Inventory Items",
+      icon: Package2,
+      path: "/tenant/inventory-items",
     },
     {
       title: "Shipments",

@@ -14,6 +14,8 @@ import RegisterAdminPage from "@/pages/auth/RegisterAdminPage";
 import RegisterTenantPage from "@/pages/auth/RegisterTenantPage";
 import VerifyOtpPage from "@/pages/auth/VerifyOtpPage";
 import TenantDashboard from "@/pages/dashboard/TenantDashboard";
+import InventoryItemDetail from "@/pages/dashboard/inventory-items/InventoryItemDetail";
+import InventoryItemList from "@/pages/dashboard/inventory-items/InventoryItemList";
 import WarehouseDetail from "@/pages/dashboard/warehouses/WarehouseDetail";
 import WarehouseList from "@/pages/dashboard/warehouses/WarehouseList";
 import { LandingPage } from "@/pages/LandingPage";
@@ -41,6 +43,8 @@ export const AppRoutes = () => {
               <Route index element={<TenantDashboard />} />
               <Route path="warehouses" element={<WarehouseList />} />
               <Route path="warehouses/:id" element={<WarehouseDetail />} />
+              <Route path="inventory-items" element={<InventoryItemList />} />
+              <Route path="inventory-items/:id" element={<InventoryItemDetail />} />
               {/* Placeholders for other routes */}
               <Route path="shipments" element={<div>Shipments</div>} />
               <Route path="ops-managers" element={<div>Ops Managers</div>} />
