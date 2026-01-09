@@ -1,3 +1,5 @@
+import { WarehouseStatus } from "@ahammedijas/fleet-os-shared";
+
 export interface Address {
   line1: string;
   city: string;
@@ -15,7 +17,7 @@ export interface Warehouse {
   code: string;
   name: string;
   address: Address;
-  status: "ACTIVE" | "MAINTENANCE" | "CLOSED" | "ARCHIVED";
+  status: WarehouseStatus;
   tenantId: string;
   createdAt: string;
   updatedAt: string;
