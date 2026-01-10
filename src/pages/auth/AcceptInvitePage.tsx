@@ -29,11 +29,9 @@ export default function AcceptInvitePage() {
   if (!token) {
     return (
       <Card className="w-full">
-         <CardContent className="p-10 text-center text-destructive">
-            Invalid or missing invitation token.
-         </CardContent>
+        <CardContent className="p-10 text-center text-destructive">Invalid or missing invitation token.</CardContent>
       </Card>
-    )
+    );
   }
 
   async function onSubmit(data: AcceptInviteFormValues) {
@@ -69,14 +67,14 @@ export default function AcceptInvitePage() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>New Password</FormLabel>
-                   <FormControl>
+                  <FormControl>
                     <PasswordInput {...field} disabled={isLoading} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={form.control}
               name="confirmPassword"

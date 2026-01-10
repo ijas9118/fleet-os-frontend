@@ -20,31 +20,41 @@ export function useLogin() {
       const response = await authService.login(data);
       if (response.data?.data?.accessToken) {
         const token = response.data.data.accessToken;
-        const decoded = jwtDecode<{ role?: string; email?: string; id?: string; tenantId?: string; tenantName?: string }>(token);
-        
-        dispatch(setAuth({ 
-          token, 
-          user: {
-            id: decoded.id,
-            email: decoded.email,
-            role: decoded.role,
-            tenant: decoded.tenantId ? {
-              id: decoded.tenantId,
-              name: decoded.tenantName || 'Unknown Tenant'
-            } : undefined
-          }
-        }));
+        const decoded = jwtDecode<{
+          role?: string;
+          email?: string;
+          id?: string;
+          tenantId?: string;
+          tenantName?: string;
+        }>(token);
 
-        if (decoded.role === 'PLATFORM_ADMIN') {
+        dispatch(
+          setAuth({
+            token,
+            user: {
+              id: decoded.id,
+              email: decoded.email,
+              role: decoded.role,
+              tenant: decoded.tenantId
+                ? {
+                    id: decoded.tenantId,
+                    name: decoded.tenantName || "Unknown Tenant",
+                  }
+                : undefined,
+            },
+          }),
+        );
+
+        if (decoded.role === "PLATFORM_ADMIN") {
           navigate("/admin");
-        } else if (decoded.role === 'TENANT_ADMIN') {
+        } else if (decoded.role === "TENANT_ADMIN") {
           navigate("/tenant");
         } else {
           navigate("/");
         }
       }
     } catch (err) {
-      const error = err as { response?: { data?: {error?: { message?: string }} } };
+      const error = err as { response?: { data?: { error?: { message?: string } } } };
       setError(error.response?.data?.error?.message || "Login failed. Please check your credentials.");
       console.error(err);
     } finally {

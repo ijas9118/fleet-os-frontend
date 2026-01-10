@@ -1,3 +1,4 @@
+import { InventoryItemStatus } from "@ahammedijas/fleet-os-shared";
 import { formatDistanceToNow } from "date-fns";
 import { ArrowLeft, Package2 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
@@ -41,13 +42,11 @@ export default function InventoryItemDetail() {
     try {
       const response = await inventoryService.getInventoryItemById(id);
       setItem(response.data.data);
-    }
-    catch (err: unknown) {
+    } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : "Failed to load inventory item details";
       setError(errorMessage);
       console.error("Failed to fetch inventory item:", err);
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   }, [id]);
@@ -87,13 +86,17 @@ export default function InventoryItemDetail() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="space-y-1">
-          <Button variant="ghost" onClick={() => navigate("/tenant/inventory-items")} className="mb-2 pl-0 hover:pl-2 transition-all">
+          <Button
+            variant="ghost"
+            onClick={() => navigate("/tenant/inventory-items")}
+            className="mb-2 pl-0 hover:pl-2 transition-all"
+          >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Inventory Items
           </Button>
           <div className="flex items-center gap-3">
-             <h2 className="text-3xl font-bold tracking-tight">{item.name}</h2>
-             <Badge variant={getStatusVariant(item.status)} className="mt-1">
+            <h2 className="text-3xl font-bold tracking-tight">{item.name}</h2>
+            <Badge variant={getStatusVariant(item.status)} className="mt-1">
               {item.status}
             </Badge>
           </div>
@@ -103,10 +106,10 @@ export default function InventoryItemDetail() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          {item.status !== "ARCHIVED" && (
+          {item.status !== InventoryItemStatus.ARCHIVED && (
             <>
               <EditInventoryItemDialog item={item} onItemUpdated={fetchItemDetails} />
-              <ArchiveInventoryItemButton 
+              <ArchiveInventoryItemButton
                 itemId={item.id}
                 itemName={item.name}
                 onArchived={() => navigate("/tenant/inventory-items")}
@@ -119,7 +122,7 @@ export default function InventoryItemDetail() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Main Info Column */}
         <div className="md:col-span-2 space-y-6">
-           {/* Item Details Card */}
+          {/* Item Details Card */}
           <Card>
             <CardHeader>
               <CardTitle>Item Information</CardTitle>
@@ -129,7 +132,7 @@ export default function InventoryItemDetail() {
               {/* Basic Info Section */}
               <div className="space-y-4">
                 <h4 className="text-sm font-semibold text-muted-foreground uppercase">Basic Details</h4>
-                
+
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-1">
                     <p className="text-sm text-muted-foreground">SKU</p>
@@ -166,13 +169,11 @@ export default function InventoryItemDetail() {
               {/* Stock Levels Section */}
               <div className="space-y-4 pt-4 border-t">
                 <h4 className="text-sm font-semibold text-muted-foreground uppercase">Stock Level Configuration</h4>
-                
+
                 <div className="grid grid-cols-3 gap-6">
                   <div className="p-4 rounded-lg bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900">
                     <p className="text-xs text-muted-foreground uppercase font-medium mb-1">Minimum</p>
-                    <p className="text-2xl font-bold text-blue-700 dark:text-blue-400">
-                      {item.minStockLevel ?? "—"}
-                    </p>
+                    <p className="text-2xl font-bold text-blue-700 dark:text-blue-400">{item.minStockLevel ?? "—"}</p>
                   </div>
                   <div className="p-4 rounded-lg bg-purple-50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-900">
                     <p className="text-xs text-muted-foreground uppercase font-medium mb-1">Maximum</p>
@@ -189,13 +190,11 @@ export default function InventoryItemDetail() {
                 </div>
 
                 {!item.minStockLevel && !item.maxStockLevel && !item.reorderPoint && (
-                  <p className="text-sm text-muted-foreground text-center py-2">
-                    No stock level configuration set
-                  </p>
+                  <p className="text-sm text-muted-foreground text-center py-2">No stock level configuration set</p>
                 )}
               </div>
 
-               {/* Metadata Section */}
+              {/* Metadata Section */}
               <div className="grid grid-cols-2 gap-4 pt-4 border-t">
                 <div className="space-y-1">
                   <h4 className="text-sm font-semibold text-muted-foreground uppercase">Created</h4>
@@ -222,19 +221,17 @@ export default function InventoryItemDetail() {
 
         {/* Side Column for stats/future widgets */}
         <div className="space-y-6">
-           <Card>
+          <Card>
             <CardHeader>
               <CardTitle className="text-base">Stock Across Warehouses</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                 <div className="p-4 rounded-lg bg-primary/5 border border-primary/20 text-center">
-                    <h3 className="text-3xl font-bold text-primary">0</h3>
-                    <p className="text-xs text-muted-foreground uppercase font-medium mt-1">Total Stock</p>
-                 </div>
-                 <p className="text-sm text-muted-foreground text-center">
-                   Stock tracking coming soon
-                 </p>
+                <div className="p-4 rounded-lg bg-primary/5 border border-primary/20 text-center">
+                  <h3 className="text-3xl font-bold text-primary">0</h3>
+                  <p className="text-xs text-muted-foreground uppercase font-medium mt-1">Total Stock</p>
+                </div>
+                <p className="text-sm text-muted-foreground text-center">Stock tracking coming soon</p>
               </div>
             </CardContent>
           </Card>
@@ -244,13 +241,13 @@ export default function InventoryItemDetail() {
               <CardTitle className="text-base">Recent Transactions</CardTitle>
             </CardHeader>
             <CardContent>
-               <div className="flex flex-col items-center justify-center py-6 text-center space-y-2">
-                 <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
-                   <Package2 className="w-5 h-5 text-muted-foreground" />
-                 </div>
-                 <p className="text-sm font-medium">No transactions yet</p>
-                 <p className="text-xs text-muted-foreground">Transaction history will appear here</p>
-               </div>
+              <div className="flex flex-col items-center justify-center py-6 text-center space-y-2">
+                <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+                  <Package2 className="w-5 h-5 text-muted-foreground" />
+                </div>
+                <p className="text-sm font-medium">No transactions yet</p>
+                <p className="text-xs text-muted-foreground">Transaction history will appear here</p>
+              </div>
             </CardContent>
           </Card>
         </div>

@@ -1,10 +1,12 @@
 import * as z from "zod";
 
-import { 
-  AcceptInviteSchema, 
-  LoginSchema, 
-  TenantAdminRegisterSchema,  TenantRegisterSchema, 
-  VerifyOtpSchema} from "@/schemas/auth.schema";
+import {
+  AcceptInviteSchema,
+  LoginSchema,
+  TenantAdminRegisterSchema,
+  TenantRegisterSchema,
+  VerifyOtpSchema,
+} from "@/schemas/auth.schema";
 
 export type LoginFormValues = z.infer<typeof LoginSchema>;
 export type RegisterFormValues = z.infer<typeof TenantRegisterSchema>;
@@ -34,11 +36,11 @@ export interface RegisterAdminRequest {
 }
 
 export interface AdminRegisterResponse {
-    message: string;
-    data: {
-        userId: string;
-        tenantId: string;
-    }
+  message: string;
+  data: {
+    userId: string;
+    tenantId: string;
+  };
 }
 
 export interface LoginResponse {

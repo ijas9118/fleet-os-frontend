@@ -37,13 +37,11 @@ export default function WarehouseList() {
 
       setWarehouses(data);
       setPageCount(meta.totalPages);
-    }
-    catch (err: unknown) {
+    } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : "Failed to load warehouses";
       setError(errorMessage);
       console.error("Failed to fetch warehouses:", err);
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   }, [pagination.pageIndex, pagination.pageSize, debouncedSearch, statusFilter, includeArchived]);
@@ -74,13 +72,15 @@ export default function WarehouseList() {
     setPagination((prev) => ({ ...prev, pageIndex: 0 }));
   };
 
-  const handleStatusUpdate = async (warehouseId: string, newStatus: string): Promise<{ success: boolean; error?: string }> => {
+  const handleStatusUpdate = async (
+    warehouseId: string,
+    newStatus: string,
+  ): Promise<{ success: boolean; error?: string }> => {
     try {
       await inventoryService.updateWarehouseStatus(warehouseId, newStatus);
       fetchWarehouses();
       return { success: true };
-    }
-    catch (err: unknown) {
+    } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : "Failed to update warehouse status";
       return { success: false, error: errorMessage };
     }

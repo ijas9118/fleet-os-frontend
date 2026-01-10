@@ -44,13 +44,11 @@ export default function WarehouseDetail() {
     try {
       const response = await inventoryService.getWarehouseById(id);
       setWarehouse(response.data.data);
-    }
-    catch (err: unknown) {
+    } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : "Failed to load warehouse details";
       setError(errorMessage);
       console.error("Failed to fetch warehouse:", err);
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   }, [id]);
@@ -92,13 +90,17 @@ export default function WarehouseDetail() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="space-y-1">
-          <Button variant="ghost" onClick={() => navigate("/tenant/warehouses")} className="mb-2 pl-0 hover:pl-2 transition-all">
+          <Button
+            variant="ghost"
+            onClick={() => navigate("/tenant/warehouses")}
+            className="mb-2 pl-0 hover:pl-2 transition-all"
+          >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Warehouses
           </Button>
           <div className="flex items-center gap-3">
-             <h2 className="text-3xl font-bold tracking-tight">{warehouse.name}</h2>
-             <Badge variant={getStatusVariant(warehouse.status)} className="mt-1">
+            <h2 className="text-3xl font-bold tracking-tight">{warehouse.name}</h2>
+            <Badge variant={getStatusVariant(warehouse.status)} className="mt-1">
               {warehouse.status}
             </Badge>
           </div>
@@ -108,8 +110,8 @@ export default function WarehouseDetail() {
           {warehouse.status !== "ARCHIVED" && (
             <>
               <EditWarehouseDialog warehouse={warehouse} onWarehouseUpdated={fetchWarehouseDetails} />
-              <ArchiveWarehouseButton 
-                warehouseId={warehouse.id} 
+              <ArchiveWarehouseButton
+                warehouseId={warehouse.id}
                 warehouseName={warehouse.name}
                 onArchived={() => navigate("/tenant/warehouses")}
               />
@@ -121,7 +123,7 @@ export default function WarehouseDetail() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Main Info Column */}
         <div className="md:col-span-2 space-y-6">
-           {/* Warehouse Details Card */}
+          {/* Warehouse Details Card */}
           <Card>
             <CardHeader>
               <CardTitle>Warehouse Information</CardTitle>
@@ -131,22 +133,22 @@ export default function WarehouseDetail() {
               {/* Address Section */}
               <div className="space-y-4">
                 <div className="flex items-start justify-between">
-                    <h4 className="text-sm font-semibold text-muted-foreground uppercase">Location</h4>
+                  <h4 className="text-sm font-semibold text-muted-foreground uppercase">Location</h4>
                 </div>
-                
+
                 <div className="bg-muted/30 rounded-lg p-1 border">
-                   {warehouse.address.coordinates ? (
-                      <WarehouseMap 
-                        lat={warehouse.address.coordinates.lat} 
-                        lng={warehouse.address.coordinates.lng} 
-                        name={warehouse.name}
-                        address={fullAddress}
-                      />
-                   ) : (
-                     <div className="h-[200px] flex items-center justify-center bg-muted/50 text-muted-foreground text-sm">
-                       No coordinates available for map
-                     </div>
-                   )}
+                  {warehouse.address.coordinates ? (
+                    <WarehouseMap
+                      lat={warehouse.address.coordinates.lat}
+                      lng={warehouse.address.coordinates.lng}
+                      name={warehouse.name}
+                      address={fullAddress}
+                    />
+                  ) : (
+                    <div className="h-[200px] flex items-center justify-center bg-muted/50 text-muted-foreground text-sm">
+                      No coordinates available for map
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex items-start gap-3 p-4 bg-muted/50 rounded-lg">
@@ -168,7 +170,7 @@ export default function WarehouseDetail() {
                 </div>
               </div>
 
-               {/* Metadata Section */}
+              {/* Metadata Section */}
               <div className="grid grid-cols-2 gap-4 pt-4 border-t">
                 <div className="space-y-1">
                   <h4 className="text-sm font-semibold text-muted-foreground uppercase">Created</h4>
@@ -195,19 +197,17 @@ export default function WarehouseDetail() {
 
         {/* Side Column for stats/future widgets */}
         <div className="space-y-6">
-           <Card>
+          <Card>
             <CardHeader>
               <CardTitle className="text-base">Inventory Status</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                 <div className="p-4 rounded-lg bg-primary/5 border border-primary/20 text-center">
-                    <h3 className="text-3xl font-bold text-primary">0</h3>
-                    <p className="text-xs text-muted-foreground uppercase font-medium mt-1">Total Items</p>
-                 </div>
-                 <p className="text-sm text-muted-foreground text-center">
-                   Inventory tracking coming soon
-                 </p>
+                <div className="p-4 rounded-lg bg-primary/5 border border-primary/20 text-center">
+                  <h3 className="text-3xl font-bold text-primary">0</h3>
+                  <p className="text-xs text-muted-foreground uppercase font-medium mt-1">Total Items</p>
+                </div>
+                <p className="text-sm text-muted-foreground text-center">Inventory tracking coming soon</p>
               </div>
             </CardContent>
           </Card>
@@ -217,13 +217,13 @@ export default function WarehouseDetail() {
               <CardTitle className="text-base">Stock Alerts</CardTitle>
             </CardHeader>
             <CardContent>
-               <div className="flex flex-col items-center justify-center py-6 text-center space-y-2">
-                 <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
-                   <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                 </div>
-                 <p className="text-sm font-medium">All systems normal</p>
-                 <p className="text-xs text-muted-foreground">No low stock alerts</p>
-               </div>
+              <div className="flex flex-col items-center justify-center py-6 text-center space-y-2">
+                <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+                  <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                </div>
+                <p className="text-sm font-medium">All systems normal</p>
+                <p className="text-xs text-muted-foreground">No low stock alerts</p>
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -231,4 +231,3 @@ export default function WarehouseDetail() {
     </div>
   );
 }
-

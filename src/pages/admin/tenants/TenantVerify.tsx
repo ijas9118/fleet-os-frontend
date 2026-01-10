@@ -28,7 +28,6 @@ export default function TenantVerify() {
     setSearch("");
   }, [activeTab]);
 
-
   const fetchTenants = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -39,9 +38,10 @@ export default function TenantVerify() {
         search: debouncedSearch,
       };
 
-      const response = activeTab === "pending" 
-        ? await authService.getPendingTenants(params) 
-        : await authService.getRejectedTenants(params);
+      const response =
+        activeTab === "pending"
+          ? await authService.getPendingTenants(params)
+          : await authService.getRejectedTenants(params);
 
       const { data, meta } = response.data.result;
 
@@ -50,7 +50,7 @@ export default function TenantVerify() {
         name: t.name,
         email: t.contactEmail,
         submittedAt: new Date(t.createdAt).toLocaleDateString(),
-        status: t.status === "ACTIVE" ? "Verified" : t.status
+        status: t.status === "ACTIVE" ? "Verified" : t.status,
       }));
       setPendingTenants(mappedTenants);
       setPageCount(meta.totalPages);
@@ -79,8 +79,8 @@ export default function TenantVerify() {
 
   const confirmReject = async () => {
     if (!rejectId) return { success: false, error: "No tenant selected" };
-    
-    const tenant = pendingTenants.find(t => t.id === rejectId);
+
+    const tenant = pendingTenants.find((t) => t.id === rejectId);
     try {
       await authService.rejectTenant(rejectId);
       setPendingTenants((prev) => prev.filter((t) => t.id !== rejectId));

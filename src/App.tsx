@@ -7,9 +7,9 @@ function App() {
   return (
     <BrowserRouter>
       <AppRoutes />
-      <Toaster position="bottom-right" richColors closeButton/>
+      <Toaster position="bottom-right" richColors closeButton />
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

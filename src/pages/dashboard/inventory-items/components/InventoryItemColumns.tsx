@@ -31,7 +31,10 @@ interface InventoryItemColumnsProps {
   onViewDetails: (itemId: string) => void;
 }
 
-export const getInventoryItemColumns = ({ onStatusChange, onViewDetails }: InventoryItemColumnsProps): ColumnDef<InventoryItem>[] => {
+export const getInventoryItemColumns = ({
+  onStatusChange,
+  onViewDetails,
+}: InventoryItemColumnsProps): ColumnDef<InventoryItem>[] => {
   return [
     {
       accessorKey: "sku",
@@ -78,7 +81,7 @@ export const getInventoryItemColumns = ({ onStatusChange, onViewDetails }: Inven
       header: "Stock Levels",
       cell: ({ row }) => {
         const { minStockLevel, maxStockLevel, reorderPoint } = row.original;
-        
+
         return (
           <div className="text-sm space-y-0.5">
             {minStockLevel !== undefined && (
@@ -108,11 +111,7 @@ export const getInventoryItemColumns = ({ onStatusChange, onViewDetails }: Inven
       header: "Status",
       cell: ({ row }) => {
         const status = row.getValue("status") as string;
-        return (
-          <Badge variant={getStatusVariant(status)}>
-            {status}
-          </Badge>
-        );
+        return <Badge variant={getStatusVariant(status)}>{status}</Badge>;
       },
     },
     {
@@ -124,16 +123,11 @@ export const getInventoryItemColumns = ({ onStatusChange, onViewDetails }: Inven
 
         return (
           <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onViewDetails(item.id)}
-              className="h-8 w-8 p-0"
-            >
+            <Button variant="ghost" size="sm" onClick={() => onViewDetails(item.id)} className="h-8 w-8 p-0">
               <Eye className="h-4 w-4" />
               <span className="sr-only">View details</span>
             </Button>
-            
+
             {item.status !== "ARCHIVED" && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -146,12 +140,10 @@ export const getInventoryItemColumns = ({ onStatusChange, onViewDetails }: Inven
                   <DropdownMenuLabel>Change Status</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   {currentStatus !== "ACTIVE" && (
-                    <DropdownMenuItem onClick={() => onStatusChange(item, "ACTIVE")}>
-                      Set as Active
-                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => onStatusChange(item, "ACTIVE")}>Set as Active</DropdownMenuItem>
                   )}
                   {currentStatus !== "DISCONTINUED" && (
-                    <DropdownMenuItem 
+                    <DropdownMenuItem
                       onClick={() => onStatusChange(item, "DISCONTINUED")}
                       className="text-destructive focus:text-destructive"
                     >

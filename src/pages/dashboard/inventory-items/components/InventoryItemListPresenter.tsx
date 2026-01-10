@@ -97,7 +97,7 @@ export function InventoryItemListPresenter({
 
   const getStatusChangeMessage = () => {
     if (!confirmDialog.item) return "";
-    
+
     const { name, sku } = confirmDialog.item;
     const status = confirmDialog.newStatus;
 
@@ -108,11 +108,12 @@ export function InventoryItemListPresenter({
   };
 
   const columns = useMemo(
-    () => getInventoryItemColumns({ 
-      onStatusChange: handleStatusChange,
-      onViewDetails: (id) => navigate(`/tenant/inventory-items/${id}`)
-    }), 
-    [navigate]
+    () =>
+      getInventoryItemColumns({
+        onStatusChange: handleStatusChange,
+        onViewDetails: (id) => navigate(`/tenant/inventory-items/${id}`),
+      }),
+    [navigate],
   );
 
   const hasActiveFilters = search || statusFilter !== "all" || categoryFilter !== "all" || includeArchived;
@@ -120,7 +121,7 @@ export function InventoryItemListPresenter({
   // Create category options from available categories
   const categoryOptions = [
     { value: "all", label: "All Categories" },
-    ...categories.map(cat => ({ value: cat, label: cat }))
+    ...categories.map((cat) => ({ value: cat, label: cat })),
   ];
 
   return (
@@ -137,9 +138,7 @@ export function InventoryItemListPresenter({
         <Card>
           <CardHeader>
             <CardTitle>All Items</CardTitle>
-            <CardDescription>
-              View and manage all inventory items across your organization.
-            </CardDescription>
+            <CardDescription>View and manage all inventory items across your organization.</CardDescription>
           </CardHeader>
           <CardContent className="relative">
             {loading && (
@@ -148,11 +147,7 @@ export function InventoryItemListPresenter({
               </div>
             )}
 
-            {error && (
-              <div className="mb-4 p-4 rounded-lg bg-destructive/10 text-destructive text-sm">
-                {error}
-              </div>
-            )}
+            {error && <div className="mb-4 p-4 rounded-lg bg-destructive/10 text-destructive text-sm">{error}</div>}
 
             <DataTable
               columns={columns}

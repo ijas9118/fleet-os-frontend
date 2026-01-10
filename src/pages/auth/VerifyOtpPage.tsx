@@ -20,7 +20,7 @@ export default function VerifyOtpPage() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  
+
   // Get email/type from router state or user input
   const initialEmail = location.state?.email || "";
   const type = location.state?.type || "tenant"; // 'tenant' or 'user'
@@ -42,7 +42,7 @@ export default function VerifyOtpPage() {
         otp: data.otp,
         type: type,
       });
-      
+
       // Verification successful, redirect to login
       navigate("/auth/login", { replace: true });
     } catch (err) {
@@ -64,8 +64,8 @@ export default function VerifyOtpPage() {
       await authService.resendOtp(email);
       alert("OTP Resent!");
     } catch (err) {
-       const error = err as { response?: { data?: { message?: string } } };
-       setError(error.response?.data?.message || "Failed to resend OTP.");
+      const error = err as { response?: { data?: { message?: string } } };
+      setError(error.response?.data?.message || "Failed to resend OTP.");
     }
   };
 
@@ -76,23 +76,23 @@ export default function VerifyOtpPage() {
         <CardDescription>Enter the code sent to your email</CardDescription>
       </CardHeader>
       <CardContent>
-         {error && <div className="mb-4 text-sm text-destructive">{error}</div>}
+        {error && <div className="mb-4 text-sm text-destructive">{error}</div>}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-             <FormField
+            <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
-                   <FormControl>
+                  <FormControl>
                     <Input placeholder="name@example.com" {...field} disabled={!!initialEmail || isLoading} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={form.control}
               name="otp"
@@ -100,8 +100,14 @@ export default function VerifyOtpPage() {
                 <FormItem>
                   <FormLabel>One-Time Password</FormLabel>
                   <FormControl>
-                     {/* Using standard input for simplicity if OTP component missing */}
-                    <Input placeholder="123456" maxLength={6} {...field} disabled={isLoading} className="text-center text-lg tracking-widest" />
+                    {/* Using standard input for simplicity if OTP component missing */}
+                    <Input
+                      placeholder="123456"
+                      maxLength={6}
+                      {...field}
+                      disabled={isLoading}
+                      className="text-center text-lg tracking-widest"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -111,7 +117,7 @@ export default function VerifyOtpPage() {
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? "Verifying..." : "Verify Code"}
             </Button>
-            
+
             <Button type="button" variant="link" className="w-full" onClick={handleResendOtp} disabled={isLoading}>
               Resend Code
             </Button>

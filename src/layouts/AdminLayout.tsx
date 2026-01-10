@@ -1,15 +1,8 @@
-import { 
-  Building2, 
-  CheckCircle,
-  LayoutDashboard, 
-  LogOut, 
-  Settings, 
-  Users, 
-} from "lucide-react";
+import { Building2, CheckCircle, LayoutDashboard, LogOut, Settings, Users } from "lucide-react";
 import { useSelector } from "react-redux";
 import { Link, Outlet, useLocation } from "react-router-dom";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -17,13 +10,13 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+} from "@/components/ui/breadcrumb";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import {
   Sidebar,
   SidebarContent,
@@ -38,7 +31,7 @@ import {
   SidebarProvider,
   SidebarRail,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 import { useLogout } from "@/hooks/useLogout";
 import type { RootState } from "@/store";
 
@@ -52,7 +45,7 @@ export default function AdminLayout() {
       title: "Overview",
       icon: LayoutDashboard,
       path: "/admin",
-      exact: true
+      exact: true,
     },
     {
       title: "Tenants",
@@ -77,7 +70,7 @@ export default function AdminLayout() {
   ];
 
   // Helper to generate breadcrumbs
-  const pathSegments = location.pathname.split('/').filter(Boolean).slice(1);
+  const pathSegments = location.pathname.split("/").filter(Boolean).slice(1);
 
   return (
     <SidebarProvider>
@@ -87,9 +80,7 @@ export default function AdminLayout() {
             <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground font-bold">
               F
             </div>
-            <span className="font-semibold truncate group-data-[collapsible=icon]:hidden">
-              FleetOS
-            </span>
+            <span className="font-semibold truncate group-data-[collapsible=icon]:hidden">FleetOS</span>
           </div>
         </SidebarHeader>
         <SidebarContent>
@@ -98,14 +89,15 @@ export default function AdminLayout() {
             <SidebarGroupContent>
               <SidebarMenu>
                 {menuItems.map((item) => {
-                  const isBestMatch = menuItems
-                    .filter(i => location.pathname.startsWith(i.path) || (i.path === "/" && location.pathname === "/"))
-                    .sort((a, b) => b.path.length - a.path.length)[0]?.path === item.path;
+                  const isBestMatch =
+                    menuItems
+                      .filter(
+                        (i) => location.pathname.startsWith(i.path) || (i.path === "/" && location.pathname === "/"),
+                      )
+                      .sort((a, b) => b.path.length - a.path.length)[0]?.path === item.path;
 
-                  const isActive = item.exact 
-                    ? location.pathname === item.path 
-                    : isBestMatch;
-                    
+                  const isActive = item.exact ? location.pathname === item.path : isBestMatch;
+
                   return (
                     <SidebarMenuItem key={item.path}>
                       <SidebarMenuButton asChild isActive={isActive} tooltip={item.title}>
@@ -115,7 +107,7 @@ export default function AdminLayout() {
                         </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
-                  )
+                  );
                 })}
               </SidebarMenu>
             </SidebarGroupContent>
@@ -166,20 +158,22 @@ export default function AdminLayout() {
               </BreadcrumbItem>
               {pathSegments.length > 0 && <BreadcrumbSeparator className="hidden md:block" />}
               {pathSegments.map((segment, index) => {
-                 const isLast = index === pathSegments.length - 1;
-                 const href = `/admin/${pathSegments.slice(0, index + 1).join('/')}`;
-                 return (
-                   <div key={segment} className="flex items-center">
-                     <BreadcrumbItem>
-                       {isLast ? (
-                         <BreadcrumbPage className="capitalize">{segment}</BreadcrumbPage>
-                       ) : (
-                         <BreadcrumbLink href={href} className="capitalize">{segment}</BreadcrumbLink>
-                       )}
-                     </BreadcrumbItem>
-                     {!isLast && <BreadcrumbSeparator className="hidden md:block" />}
-                   </div>
-                 )
+                const isLast = index === pathSegments.length - 1;
+                const href = `/admin/${pathSegments.slice(0, index + 1).join("/")}`;
+                return (
+                  <div key={segment} className="flex items-center">
+                    <BreadcrumbItem>
+                      {isLast ? (
+                        <BreadcrumbPage className="capitalize">{segment}</BreadcrumbPage>
+                      ) : (
+                        <BreadcrumbLink href={href} className="capitalize">
+                          {segment}
+                        </BreadcrumbLink>
+                      )}
+                    </BreadcrumbItem>
+                    {!isLast && <BreadcrumbSeparator className="hidden md:block" />}
+                  </div>
+                );
               })}
             </BreadcrumbList>
           </Breadcrumb>

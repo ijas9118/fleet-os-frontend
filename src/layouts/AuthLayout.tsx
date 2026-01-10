@@ -12,9 +12,7 @@ export function AuthLayout() {
           <blockquote className="text-lg">
             &ldquo;Complete control over your fleet inventory, simplified.&rdquo;
           </blockquote>
-          <p className="text-sm opacity-80">
-            Manage warehouses, shipments, and inventory with ease.
-          </p>
+          <p className="text-sm opacity-80">Manage warehouses, shipments, and inventory with ease.</p>
         </div>
       </div>
 

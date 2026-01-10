@@ -52,7 +52,7 @@ export default function UserList() {
         console.error("Failed to fetch tenants:", error);
       }
     };
-    
+
     fetchTenants();
   }, []);
 
@@ -83,7 +83,7 @@ export default function UserList() {
 
       const response = await authService.getUsers(params);
       const { data, meta } = response.data.result;
-      
+
       const mappedUsers: User[] = data.map((u) => ({
         id: u.id,
         name: u.name,
@@ -93,7 +93,7 @@ export default function UserList() {
         isActive: u.isActive,
         createdAt: u.createdAt,
       }));
-      
+
       setUsers(mappedUsers);
       setPageCount(meta.totalPages);
     } catch (error: unknown) {

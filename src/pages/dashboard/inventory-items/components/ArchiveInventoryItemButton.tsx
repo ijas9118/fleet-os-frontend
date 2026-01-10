@@ -24,24 +24,18 @@ export function ArchiveInventoryItemButton({ itemId, itemName, onArchived }: Arc
       setConfirmOpen(false);
       onArchived();
       return { success: true };
-    }
-    catch (error: unknown) {
+    } catch (error: unknown) {
       const message = error instanceof Error ? error.message : "Failed to archive inventory item";
       toast.error(message);
       return { success: false, error: message };
-    }
-    finally {
+    } finally {
       setIsArchiving(false);
     }
   };
 
   return (
     <>
-      <Button
-        variant="destructive"
-        size="sm"
-        onClick={() => setConfirmOpen(true)}
-      >
+      <Button variant="destructive" size="sm" onClick={() => setConfirmOpen(true)}>
         <Trash2 className="w-4 h-4 mr-2" />
         Archive Item
       </Button>

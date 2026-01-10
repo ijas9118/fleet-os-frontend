@@ -1,6 +1,6 @@
-import type { 
+import type {
   AdminRegisterResponse,
-  LoginFormValues, 
+  LoginFormValues,
   LoginResponse,
   PaginatedResult,
   PaginationParams,
@@ -11,53 +11,53 @@ import type {
   TenantResponse,
   UserResponse,
   VerifyOtpResponse,
-} from '@/types/auth.types';
+} from "@/types/auth.types";
 
-import { api } from './api';
+import { api } from "./api";
 
 export const authService = {
   login: async (data: LoginFormValues) => {
-    return api.post<LoginResponse>('/auth/login', data);
+    return api.post<LoginResponse>("/auth/login", data);
   },
-  
+
   registerTenant: async (data: RegisterTenantRequest) => {
-    return api.post<RegisterTenantResponse>('/tenants/register', data);
+    return api.post<RegisterTenantResponse>("/tenants/register", data);
   },
 
   registerTenantAdmin: async (data: RegisterAdminRequest) => {
-    return api.post<AdminRegisterResponse>('/auth/register-admin', data);
+    return api.post<AdminRegisterResponse>("/auth/register-admin", data);
   },
 
-  verifyOtp: async (data: { email: string; otp: string; type: 'tenant' | 'user' }) => {
-    return api.post<VerifyOtpResponse>('/auth/verify-otp', data);
+  verifyOtp: async (data: { email: string; otp: string; type: "tenant" | "user" }) => {
+    return api.post<VerifyOtpResponse>("/auth/verify-otp", data);
   },
 
   resendOtp: async (email: string) => {
-    return api.post('/auth/resend-otp', { email });
+    return api.post("/auth/resend-otp", { email });
   },
 
   acceptInvite: async (data: { token: string; password: string }) => {
-    return api.post('/auth/accept-invite', data);
+    return api.post("/auth/accept-invite", data);
   },
-  
+
   logout: async () => {
-    return api.post('/auth/logout');
+    return api.post("/auth/logout");
   },
 
   refreshToken: async () => {
-    return api.post<RefreshTokenResponse>('/auth/refresh');
+    return api.post<RefreshTokenResponse>("/auth/refresh");
   },
 
   getPendingTenants: async (params?: PaginationParams) => {
-    return api.get<{ result: PaginatedResult<TenantResponse> }>('/tenants/pending', { params });
+    return api.get<{ result: PaginatedResult<TenantResponse> }>("/tenants/pending", { params });
   },
 
   getTenants: async (params?: PaginationParams) => {
-    return api.get<{ result: PaginatedResult<TenantResponse> }>('/tenants', { params });
+    return api.get<{ result: PaginatedResult<TenantResponse> }>("/tenants", { params });
   },
 
   getRejectedTenants: async (params?: PaginationParams) => {
-    return api.get<{ result: PaginatedResult<TenantResponse> }>('/tenants/rejected', { params });
+    return api.get<{ result: PaginatedResult<TenantResponse> }>("/tenants/rejected", { params });
   },
 
   verifyTenant: async (tenantId: string) => {
@@ -69,16 +69,14 @@ export const authService = {
   },
 
   getUsers: async (params?: PaginationParams) => {
-    return api.get<{ result: PaginatedResult<UserResponse> }>('/users', { params });
+    return api.get<{ result: PaginatedResult<UserResponse> }>("/users", { params });
   },
 
   blockUser: async (userId: string) => {
-    return api.post('/users/block', { userId });
+    return api.post("/users/block", { userId });
   },
 
   unblockUser: async (userId: string) => {
-    return api.post('/users/unblock', { userId });
+    return api.post("/users/unblock", { userId });
   },
 };
-
-

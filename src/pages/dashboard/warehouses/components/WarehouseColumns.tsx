@@ -34,7 +34,10 @@ interface WarehouseColumnsProps {
   onViewDetails: (warehouseId: string) => void;
 }
 
-export const getWarehouseColumns = ({ onStatusChange, onViewDetails }: WarehouseColumnsProps): ColumnDef<Warehouse>[] => {
+export const getWarehouseColumns = ({
+  onStatusChange,
+  onViewDetails,
+}: WarehouseColumnsProps): ColumnDef<Warehouse>[] => {
   return [
     {
       accessorKey: "code",
@@ -55,7 +58,9 @@ export const getWarehouseColumns = ({ onStatusChange, onViewDetails }: Warehouse
         return (
           <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
             <MapPin className="w-3.5 h-3.5" />
-            <span>{city}, {country}</span>
+            <span>
+              {city}, {country}
+            </span>
           </div>
         );
       },
@@ -65,11 +70,7 @@ export const getWarehouseColumns = ({ onStatusChange, onViewDetails }: Warehouse
       header: "Status",
       cell: ({ row }) => {
         const status = row.getValue("status") as string;
-        return (
-          <Badge variant={getStatusVariant(status)}>
-            {status}
-          </Badge>
-        );
+        return <Badge variant={getStatusVariant(status)}>{status}</Badge>;
       },
     },
     {
@@ -93,16 +94,11 @@ export const getWarehouseColumns = ({ onStatusChange, onViewDetails }: Warehouse
 
         return (
           <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onViewDetails(warehouse.id!)}
-              className="h-8 w-8 p-0"
-            >
+            <Button variant="ghost" size="sm" onClick={() => onViewDetails(warehouse.id!)} className="h-8 w-8 p-0">
               <Eye className="h-4 w-4" />
               <span className="sr-only">View details</span>
             </Button>
-            
+
             {warehouse.status !== "ARCHIVED" && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -125,7 +121,7 @@ export const getWarehouseColumns = ({ onStatusChange, onViewDetails }: Warehouse
                     </DropdownMenuItem>
                   )}
                   {currentStatus !== "CLOSED" && (
-                    <DropdownMenuItem 
+                    <DropdownMenuItem
                       onClick={() => onStatusChange(warehouse, "CLOSED")}
                       className="text-destructive focus:text-destructive"
                     >
@@ -141,4 +137,3 @@ export const getWarehouseColumns = ({ onStatusChange, onViewDetails }: Warehouse
     },
   ];
 };
-

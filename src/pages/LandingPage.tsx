@@ -14,7 +14,9 @@ export function LandingPage() {
       </div>
       <div className="flex gap-4">
         <Button size="lg">Start Inventory</Button>
-        <Button size="lg" variant="outline">Learn More</Button>
+        <Button size="lg" variant="outline">
+          Learn More
+        </Button>
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ import type { RegisterAdminFormValues, RegisterAdminRequest } from "@/types/auth
 export default function RegisterAdminPage() {
   const [searchParams] = useSearchParams();
   const tenantId = searchParams.get("tenantId");
-  
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -46,13 +46,13 @@ export default function RegisterAdminPage() {
       };
 
       await authService.registerTenantAdmin(apiPayload);
-      
+
       // Redirect to OTP verification with type user
-      navigate("/auth/verify-otp", { 
-        state: { 
-          email: data.email, 
-          type: 'user' 
-        } 
+      navigate("/auth/verify-otp", {
+        state: {
+          email: data.email,
+          type: "user",
+        },
       });
     } catch (err) {
       const error = err as { response?: { data?: { message?: string } } };
@@ -65,20 +65,20 @@ export default function RegisterAdminPage() {
   if (!tenantId) {
     return (
       <Card className="w-full">
-         <CardHeader>
+        <CardHeader>
           <CardTitle className="text-destructive">Invalid Link</CardTitle>
           <CardDescription>
-            This registration link is invalid or missing the required tenant information.
-            Please contact support or request a new link.
+            This registration link is invalid or missing the required tenant information. Please contact support or
+            request a new link.
           </CardDescription>
         </CardHeader>
         <CardFooter className="justify-center">
-             <Link to="/auth/login" className="underline underline-offset-4 hover:text-primary">
+          <Link to="/auth/login" className="underline underline-offset-4 hover:text-primary">
             Back to Login
           </Link>
         </CardFooter>
       </Card>
-    )
+    );
   }
 
   return (
@@ -104,7 +104,7 @@ export default function RegisterAdminPage() {
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={form.control}
               name="email"
@@ -133,7 +133,7 @@ export default function RegisterAdminPage() {
               )}
             />
 
-             <FormField
+            <FormField
               control={form.control}
               name="confirmPassword"
               render={({ field }) => (

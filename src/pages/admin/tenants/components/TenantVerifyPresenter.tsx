@@ -1,4 +1,4 @@
-import type { OnChangeFn,PaginationState } from "@tanstack/react-table";
+import type { OnChangeFn, PaginationState } from "@tanstack/react-table";
 import { useEffect, useMemo } from "react";
 import { toast } from "sonner";
 
@@ -45,7 +45,6 @@ export function TenantVerifyPresenter({
   onRejectConfirm,
   onRejectCancel,
 }: TenantVerifyPresenterProps) {
-  
   // Show error toast when error state changes
   useEffect(() => {
     if (error) {
@@ -71,11 +70,15 @@ export function TenantVerifyPresenter({
     }
   };
 
-  const columns = useMemo(() => getTenantVerifyColumns({
-    activeTab,
-    onApprove: handleApprove,
-    onReject,
-  }), [activeTab, handleApprove, onReject]);
+  const columns = useMemo(
+    () =>
+      getTenantVerifyColumns({
+        activeTab,
+        onApprove: handleApprove,
+        onReject,
+      }),
+    [activeTab, handleApprove, onReject],
+  );
 
   return (
     <div className="space-y-6">
@@ -113,8 +116,8 @@ export function TenantVerifyPresenter({
         <CardHeader>
           <CardTitle>{activeTab === "pending" ? "Pending Requests" : "Rejected Tenants"}</CardTitle>
           <CardDescription>
-            {activeTab === "pending" 
-              ? "These businesses are waiting for platform approval." 
+            {activeTab === "pending"
+              ? "These businesses are waiting for platform approval."
               : "List of rejected tenant applications."}
           </CardDescription>
         </CardHeader>
@@ -124,20 +127,15 @@ export function TenantVerifyPresenter({
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
             </div>
           )}
-          
-          <DataTable 
-            columns={columns} 
+
+          <DataTable
+            columns={columns}
             data={tenants}
             pagination={pagination}
             pageCount={pageCount}
             onPaginationChange={onPaginationChange}
             searchElement={
-              <Input
-                placeholder="Search..."
-                value={search}
-                onChange={onSearchChange}
-                className="max-w-sm mr-4"
-              />
+              <Input placeholder="Search..." value={search} onChange={onSearchChange} className="max-w-sm mr-4" />
             }
           />
         </CardContent>

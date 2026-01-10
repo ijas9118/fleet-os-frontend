@@ -1,4 +1,4 @@
-import type { OnChangeFn,PaginationState } from "@tanstack/react-table";
+import type { OnChangeFn, PaginationState } from "@tanstack/react-table";
 import { useMemo } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -18,7 +18,6 @@ interface TenantListPresenterProps {
   search: string;
   onSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
-
 
 export function TenantListPresenter({
   tenants,
@@ -44,9 +43,7 @@ export function TenantListPresenter({
       <Card>
         <CardHeader>
           <CardTitle>All Tenants</CardTitle>
-          <CardDescription>
-            List of all businesses registered on the platform.
-          </CardDescription>
+          <CardDescription>List of all businesses registered on the platform.</CardDescription>
         </CardHeader>
         <CardContent className="relative">
           {loading && (
@@ -54,10 +51,10 @@ export function TenantListPresenter({
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
             </div>
           )}
-          
-          <DataTable 
-            columns={columns} 
-            data={tenants} 
+
+          <DataTable
+            columns={columns}
+            data={tenants}
             pagination={pagination}
             pageCount={pageCount}
             onPaginationChange={onPaginationChange}

@@ -15,15 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { inventoryService } from "@/services/inventoryService";
 
@@ -84,12 +76,10 @@ export function CreateWarehouseDialog({ onWarehouseCreated }: CreateWarehouseDia
       setOpen(false);
       form.reset();
       onWarehouseCreated();
-    }
-    catch (error: unknown) {
+    } catch (error: unknown) {
       const message = error instanceof Error ? error.message : "Failed to create warehouse";
       toast.error(message);
-    }
-    finally {
+    } finally {
       setIsSubmitting(false);
     }
   };
@@ -149,7 +139,7 @@ export function CreateWarehouseDialog({ onWarehouseCreated }: CreateWarehouseDia
 
             <div className="space-y-4">
               <h4 className="text-sm font-semibold">Address Information</h4>
-              
+
               <FormField
                 control={form.control}
                 name="address.line1"
@@ -232,10 +222,7 @@ export function CreateWarehouseDialog({ onWarehouseCreated }: CreateWarehouseDia
                 <FormItem>
                   <FormLabel>Location on Map *</FormLabel>
                   <FormControl>
-                    <CoordinatePickerMap
-                      coordinates={field.value}
-                      onCoordinatesChange={handleCoordinatesChange}
-                    />
+                    <CoordinatePickerMap coordinates={field.value} onCoordinatesChange={handleCoordinatesChange} />
                   </FormControl>
                   {field.value && (
                     <FormDescription className="flex items-center gap-2">

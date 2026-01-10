@@ -15,14 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { inventoryService } from "@/services/inventoryService";
 import type { InventoryItem } from "@/types/inventoryItem";
@@ -70,12 +63,10 @@ export function EditInventoryItemDialog({ item, onItemUpdated }: EditInventoryIt
       toast.success("Inventory item updated successfully");
       setOpen(false);
       onItemUpdated();
-    }
-    catch (error: unknown) {
+    } catch (error: unknown) {
       const message = error instanceof Error ? error.message : "Failed to update inventory item";
       toast.error(message);
-    }
-    finally {
+    } finally {
       setIsSubmitting(false);
     }
   };
@@ -104,7 +95,7 @@ export function EditInventoryItemDialog({ item, onItemUpdated }: EditInventoryIt
                 <div className="h-1 w-1 rounded-full bg-primary" />
                 <h3 className="text-lg font-semibold">Basic Information</h3>
               </div>
-              
+
               <div className="grid grid-cols-2 gap-6">
                 <FormField
                   control={form.control}
@@ -113,11 +104,7 @@ export function EditInventoryItemDialog({ item, onItemUpdated }: EditInventoryIt
                     <FormItem>
                       <FormLabel className="text-sm font-medium">Item Name *</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="Premium Widget" 
-                          {...field}
-                          className="h-10"
-                        />
+                        <Input placeholder="Premium Widget" {...field} className="h-10" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -131,11 +118,7 @@ export function EditInventoryItemDialog({ item, onItemUpdated }: EditInventoryIt
                     <FormItem>
                       <FormLabel className="text-sm font-medium">SKU *</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="ITEM-001" 
-                          {...field}
-                          className="h-10 font-mono"
-                        />
+                        <Input placeholder="ITEM-001" {...field} className="h-10 font-mono" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -151,11 +134,7 @@ export function EditInventoryItemDialog({ item, onItemUpdated }: EditInventoryIt
                     <FormItem>
                       <FormLabel className="text-sm font-medium">Category</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="Electronics" 
-                          {...field}
-                          className="h-10"
-                        />
+                        <Input placeholder="Electronics" {...field} className="h-10" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -169,11 +148,7 @@ export function EditInventoryItemDialog({ item, onItemUpdated }: EditInventoryIt
                     <FormItem>
                       <FormLabel className="text-sm font-medium">Unit of Measurement *</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="pieces, kg, liters" 
-                          {...field}
-                          className="h-10"
-                        />
+                        <Input placeholder="pieces, kg, liters" {...field} className="h-10" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -196,7 +171,7 @@ export function EditInventoryItemDialog({ item, onItemUpdated }: EditInventoryIt
                   <FormItem>
                     <FormLabel className="text-sm font-medium">Item Description</FormLabel>
                     <FormControl>
-                      <textarea 
+                      <textarea
                         placeholder="Detailed description of the inventory item..."
                         {...field}
                         className="flex min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -223,8 +198,8 @@ export function EditInventoryItemDialog({ item, onItemUpdated }: EditInventoryIt
                     <FormItem>
                       <FormLabel className="text-sm font-medium">Minimum Stock Level</FormLabel>
                       <FormControl>
-                        <Input 
-                          type="number" 
+                        <Input
+                          type="number"
                           placeholder="0"
                           {...field}
                           onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
@@ -243,8 +218,8 @@ export function EditInventoryItemDialog({ item, onItemUpdated }: EditInventoryIt
                     <FormItem>
                       <FormLabel className="text-sm font-medium">Maximum Stock Level</FormLabel>
                       <FormControl>
-                        <Input 
-                          type="number" 
+                        <Input
+                          type="number"
                           placeholder="0"
                           {...field}
                           onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
@@ -263,8 +238,8 @@ export function EditInventoryItemDialog({ item, onItemUpdated }: EditInventoryIt
                     <FormItem>
                       <FormLabel className="text-sm font-medium">Reorder Point</FormLabel>
                       <FormControl>
-                        <Input 
-                          type="number" 
+                        <Input
+                          type="number"
                           placeholder="0"
                           {...field}
                           onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
@@ -279,12 +254,7 @@ export function EditInventoryItemDialog({ item, onItemUpdated }: EditInventoryIt
             </div>
 
             <DialogFooter className="gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => setOpen(false)}
-                disabled={isSubmitting}
-              >
+              <Button type="button" variant="outline" onClick={() => setOpen(false)} disabled={isSubmitting}>
                 Cancel
               </Button>
               <Button type="submit" disabled={isSubmitting}>

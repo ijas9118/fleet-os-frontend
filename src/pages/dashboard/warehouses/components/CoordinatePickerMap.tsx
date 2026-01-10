@@ -21,7 +21,11 @@ interface CoordinatePickerMapProps {
   onCoordinatesChange: (coords: { lat: number; lng: number }) => void;
 }
 
-function LocationMarker({ onCoordinatesChange }: { onCoordinatesChange: (coords: { lat: number; lng: number }) => void }) {
+function LocationMarker({
+  onCoordinatesChange,
+}: {
+  onCoordinatesChange: (coords: { lat: number; lng: number }) => void;
+}) {
   const [position, setPosition] = useState<{ lat: number; lng: number } | undefined>(undefined);
 
   useMapEvents({
@@ -36,9 +40,7 @@ function LocationMarker({ onCoordinatesChange }: { onCoordinatesChange: (coords:
 }
 
 export function CoordinatePickerMap({ coordinates, onCoordinatesChange }: CoordinatePickerMapProps) {
-  const center: [number, number] = coordinates 
-    ? [coordinates.lat, coordinates.lng] 
-    : [20.5937, 78.9629]; // India center as default
+  const center: [number, number] = coordinates ? [coordinates.lat, coordinates.lng] : [20.5937, 78.9629]; // India center as default
 
   return (
     <div className="h-[400px] w-full rounded-md overflow-hidden border relative">

@@ -43,16 +43,14 @@ export default function InventoryItemList() {
 
       // Extract unique categories from items
       const uniqueCategories = Array.from(
-        new Set(data.map(item => item.category).filter(Boolean) as string[])
+        new Set(data.map((item) => item.category).filter(Boolean) as string[]),
       ).sort();
       setCategories(uniqueCategories);
-    }
-    catch (err: unknown) {
+    } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : "Failed to load inventory items";
       setError(errorMessage);
       console.error("Failed to fetch inventory items:", err);
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   }, [pagination.pageIndex, pagination.pageSize, debouncedSearch, statusFilter, categoryFilter, includeArchived]);
@@ -89,13 +87,15 @@ export default function InventoryItemList() {
     setPagination((prev) => ({ ...prev, pageIndex: 0 }));
   };
 
-  const handleStatusUpdate = async (itemId: string, newStatus: string): Promise<{ success: boolean; error?: string }> => {
+  const handleStatusUpdate = async (
+    itemId: string,
+    newStatus: string,
+  ): Promise<{ success: boolean; error?: string }> => {
     try {
       await inventoryService.updateInventoryItemStatus(itemId, newStatus);
       fetchInventoryItems();
       return { success: true };
-    }
-    catch (err: unknown) {
+    } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : "Failed to update item status";
       return { success: false, error: errorMessage };
     }

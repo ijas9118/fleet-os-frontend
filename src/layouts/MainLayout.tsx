@@ -13,9 +13,7 @@ export function MainLayout() {
           <Button variant="ghost" onClick={() => navigate("/auth/login")}>
             Log in
           </Button>
-          <Button onClick={() => navigate("/auth/register-tenant")}>
-            Get Started
-          </Button>
+          <Button onClick={() => navigate("/auth/register-tenant")}>Get Started</Button>
         </div>
       </header>
       <main className="flex-1 p-6">

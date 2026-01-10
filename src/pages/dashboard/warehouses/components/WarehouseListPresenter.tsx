@@ -92,7 +92,7 @@ export function WarehouseListPresenter({
 
   const getStatusChangeMessage = () => {
     if (!confirmDialog.warehouse) return "";
-    
+
     const { name, code } = confirmDialog.warehouse;
     const status = confirmDialog.newStatus;
 
@@ -106,11 +106,12 @@ export function WarehouseListPresenter({
   };
 
   const columns = useMemo(
-    () => getWarehouseColumns({ 
-      onStatusChange: handleStatusChange,
-      onViewDetails: (id) => navigate(`/tenant/warehouses/${id}`)
-    }), 
-    [navigate]
+    () =>
+      getWarehouseColumns({
+        onStatusChange: handleStatusChange,
+        onViewDetails: (id) => navigate(`/tenant/warehouses/${id}`),
+      }),
+    [navigate],
   );
 
   const hasActiveFilters = search || statusFilter !== "all" || includeArchived;
@@ -129,9 +130,7 @@ export function WarehouseListPresenter({
         <Card>
           <CardHeader>
             <CardTitle>All Warehouses</CardTitle>
-            <CardDescription>
-              View and manage all warehouse locations across your organization.
-            </CardDescription>
+            <CardDescription>View and manage all warehouse locations across your organization.</CardDescription>
           </CardHeader>
           <CardContent className="relative">
             {loading && (
@@ -140,11 +139,7 @@ export function WarehouseListPresenter({
               </div>
             )}
 
-            {error && (
-              <div className="mb-4 p-4 rounded-lg bg-destructive/10 text-destructive text-sm">
-                {error}
-              </div>
-            )}
+            {error && <div className="mb-4 p-4 rounded-lg bg-destructive/10 text-destructive text-sm">{error}</div>}
 
             <DataTable
               columns={columns}

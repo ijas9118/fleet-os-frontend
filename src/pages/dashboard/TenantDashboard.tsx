@@ -5,7 +5,6 @@ import { useLogout } from "@/hooks/useLogout";
 export default function TenantDashboard() {
   const { logout } = useLogout();
 
-
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-muted/40 p-4">
       <Card className="w-full max-w-md text-center">
@@ -13,12 +12,8 @@ export default function TenantDashboard() {
           <CardTitle className="text-3xl font-bold text-primary">Welcome to FleetOS</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p className="text-muted-foreground">
-            You have successfully registered your tenant admin account.
-          </p>
-          <p className="text-sm">
-            Your dashboard is being prepared. Stay tuned for more features!
-          </p>
+          <p className="text-muted-foreground">You have successfully registered your tenant admin account.</p>
+          <p className="text-sm">Your dashboard is being prepared. Stay tuned for more features!</p>
           <Button onClick={logout} variant="destructive" className="w-full">
             Logout
           </Button>

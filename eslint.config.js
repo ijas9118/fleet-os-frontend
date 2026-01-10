@@ -6,6 +6,7 @@ import tseslint from 'typescript-eslint'
 import react from 'eslint-plugin-react'
 import jsxA11y from 'eslint-plugin-jsx-a11y'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
+import prettierConfig from 'eslint-config-prettier'
 import { defineConfig } from 'eslint/config'
 
 export default defineConfig([
@@ -46,4 +47,6 @@ export default defineConfig([
       },
     },
   },
+  // Prettier config must be last to override other formatting rules
+  prettierConfig,
 ])

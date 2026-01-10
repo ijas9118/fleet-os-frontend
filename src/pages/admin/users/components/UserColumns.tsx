@@ -2,13 +2,13 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { Ban, MoreHorizontal, ShieldCheck } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuLabel, 
-  DropdownMenuSeparator, 
-  DropdownMenuTrigger 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
 export interface User {
@@ -65,7 +65,9 @@ export const getUserListColumns = ({ onBlockUser, onUnblockUser }: ColumnsOption
     cell: ({ row }) => {
       const role = row.getValue("role") as string;
       return (
-        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${roleColors[role] || "bg-gray-100 text-gray-800"}`}>
+        <span
+          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${roleColors[role] || "bg-gray-100 text-gray-800"}`}
+        >
           {roleLabels[role] || role}
         </span>
       );
@@ -77,9 +79,7 @@ export const getUserListColumns = ({ onBlockUser, onUnblockUser }: ColumnsOption
     cell: ({ row }) => {
       const tenantId = row.getValue("tenantId") as string | undefined;
       return (
-        <span className="text-sm text-muted-foreground font-mono">
-          {tenantId ? tenantId.slice(0, 8) + "..." : "-"}
-        </span>
+        <span className="text-sm text-muted-foreground font-mono">{tenantId ? tenantId.slice(0, 8) + "..." : "-"}</span>
       );
     },
   },
@@ -89,9 +89,11 @@ export const getUserListColumns = ({ onBlockUser, onUnblockUser }: ColumnsOption
     cell: ({ row }) => {
       const isActive = row.getValue("isActive") as boolean;
       return (
-        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-          isActive ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-        }`}>
+        <span
+          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+            isActive ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+          }`}
+        >
           {isActive ? (
             <>
               <ShieldCheck className="w-3 h-3 mr-1" />
@@ -111,7 +113,7 @@ export const getUserListColumns = ({ onBlockUser, onUnblockUser }: ColumnsOption
     id: "actions",
     cell: ({ row }) => {
       const user = row.original;
- 
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -122,33 +124,23 @@ export const getUserListColumns = ({ onBlockUser, onUnblockUser }: ColumnsOption
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(user.email)}
-            >
-              Copy email
-            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => navigator.clipboard.writeText(user.email)}>Copy email</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View details</DropdownMenuItem>
             {user.isActive ? (
-              <DropdownMenuItem 
-                className="text-destructive focus:text-destructive"
-                onClick={() => onBlockUser(user)}
-              >
+              <DropdownMenuItem className="text-destructive focus:text-destructive" onClick={() => onBlockUser(user)}>
                 <Ban className="w-4 h-4 mr-2" />
                 Block user
               </DropdownMenuItem>
             ) : (
-              <DropdownMenuItem 
-                onClick={() => onUnblockUser(user)}
-              >
+              <DropdownMenuItem onClick={() => onUnblockUser(user)}>
                 <ShieldCheck className="w-4 h-4 mr-2" />
                 Unblock user
               </DropdownMenuItem>
             )}
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
 ];
-

@@ -12,11 +12,7 @@ interface ArchiveWarehouseButtonProps {
   onArchived: () => void;
 }
 
-export function ArchiveWarehouseButton({ 
-  warehouseId, 
-  warehouseName, 
-  onArchived 
-}: ArchiveWarehouseButtonProps) {
+export function ArchiveWarehouseButton({ warehouseId, warehouseName, onArchived }: ArchiveWarehouseButtonProps) {
   const [open, setOpen] = useState(false);
 
   const handleArchive = async () => {
@@ -26,8 +22,7 @@ export function ArchiveWarehouseButton({
       setOpen(false);
       onArchived();
       return { success: true };
-    }
-    catch (error: unknown) {
+    } catch (error: unknown) {
       const message = error instanceof Error ? error.message : "Failed to archive warehouse";
       toast.error(message);
       return { success: false };

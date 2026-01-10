@@ -17,7 +17,6 @@ export default function TenantList() {
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 500);
 
-
   const fetchTenants = useCallback(async () => {
     setLoading(true);
     try {
@@ -27,7 +26,7 @@ export default function TenantList() {
         search: debouncedSearch,
       });
       const { data, meta } = response.data.result;
-      
+
       const mappedTenants: Tenant[] = data.map((t) => ({
         id: t.tenantId,
         name: t.name,
@@ -35,7 +34,7 @@ export default function TenantList() {
         status: t.status,
         industry: t.industry || "-",
       }));
-      
+
       setTenants(mappedTenants);
       setPageCount(meta.totalPages);
     } catch (error) {

@@ -1,19 +1,10 @@
-import { 
-  Box,
-  LayoutDashboard, 
-  LogOut, 
-  Package, 
-  Package2,
-  Settings, 
-  Truck, 
-  Users2
-} from "lucide-react";
+import { Box, Clipboard, LayoutDashboard, LogOut, Package, Package2, Settings, Truck, Users2 } from "lucide-react";
 import { ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, Outlet, useLocation } from "react-router-dom";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -21,13 +12,13 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+} from "@/components/ui/breadcrumb";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import {
   Sidebar,
   SidebarContent,
@@ -45,7 +36,7 @@ import {
   SidebarProvider,
   SidebarRail,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 import { useLogout } from "@/hooks/useLogout";
 import type { RootState } from "@/store";
 
@@ -61,25 +52,25 @@ interface SidebarSubMenuProps {
 
 function SidebarSubMenu({ item, location }: SidebarSubMenuProps) {
   const [isOpen, setIsOpen] = useState(true);
-  
+
   return (
     <SidebarMenuItem>
       <SidebarMenuButton tooltip={item.title} onClick={() => setIsOpen(!isOpen)}>
-          <item.icon />
-          <span>{item.title}</span>
-          <ChevronRight className={`ml-auto transition-transform duration-200 ${isOpen ? 'rotate-90' : ''}`} />
+        <item.icon />
+        <span>{item.title}</span>
+        <ChevronRight className={`ml-auto transition-transform duration-200 ${isOpen ? "rotate-90" : ""}`} />
       </SidebarMenuButton>
       {isOpen && (
         <SidebarMenuSub>
-            {item.submenu.map((subItem: { title: string; path: string }) => (
-                <SidebarMenuSubItem key={subItem.path}>
-                    <SidebarMenuSubButton asChild isActive={location.pathname === subItem.path}>
-                        <Link to={subItem.path}>
-                            <span>{subItem.title}</span>
-                        </Link>
-                    </SidebarMenuSubButton>
-                </SidebarMenuSubItem>
-            ))}
+          {item.submenu.map((subItem: { title: string; path: string }) => (
+            <SidebarMenuSubItem key={subItem.path}>
+              <SidebarMenuSubButton asChild isActive={location.pathname === subItem.path}>
+                <Link to={subItem.path}>
+                  <span>{subItem.title}</span>
+                </Link>
+              </SidebarMenuSubButton>
+            </SidebarMenuSubItem>
+          ))}
         </SidebarMenuSub>
       )}
     </SidebarMenuItem>
@@ -96,7 +87,7 @@ export default function TenantLayout() {
       title: "Overview",
       icon: LayoutDashboard,
       path: "/tenant",
-      exact: true
+      exact: true,
     },
     {
       title: "Warehouses",
@@ -107,6 +98,11 @@ export default function TenantLayout() {
       title: "Inventory Items",
       icon: Package2,
       path: "/tenant/inventory-items",
+    },
+    {
+      title: "Stock Management",
+      icon: Clipboard,
+      path: "/tenant/stocks",
     },
     {
       title: "Shipments",
@@ -129,14 +125,14 @@ export default function TenantLayout() {
       path: "/tenant/fleet",
       submenu: [
         {
-           title: "Drivers",
-           path: "/tenant/fleet/drivers",
+          title: "Drivers",
+          path: "/tenant/fleet/drivers",
         },
         {
-            title: "Vehicles",
-            path: "/tenant/fleet/vehicles",
-        }
-      ]
+          title: "Vehicles",
+          path: "/tenant/fleet/vehicles",
+        },
+      ],
     },
     {
       title: "Settings",
@@ -146,7 +142,7 @@ export default function TenantLayout() {
   ];
 
   // Helper to generate breadcrumbs
-  const pathSegments = location.pathname.split('/').filter(Boolean).slice(1);
+  const pathSegments = location.pathname.split("/").filter(Boolean).slice(1);
 
   return (
     <SidebarProvider>
@@ -157,12 +153,8 @@ export default function TenantLayout() {
               {user?.tenant?.name?.charAt(0).toUpperCase() || "T"}
             </div>
             <div className="flex flex-col group-data-[collapsible=icon]:hidden">
-                <span className="font-semibold truncate">
-                {user?.tenant?.name || "Tenant Portal"}
-                </span>
-                <span className="text-xs text-muted-foreground truncate">
-                    Tenant Admin
-                </span>
+              <span className="font-semibold truncate">{user?.tenant?.name || "Tenant Portal"}</span>
+              <span className="text-xs text-muted-foreground truncate">Tenant Admin</span>
             </div>
           </div>
         </SidebarHeader>
@@ -172,14 +164,14 @@ export default function TenantLayout() {
             <SidebarGroupContent>
               <SidebarMenu>
                 {menuItems.map((item) => {
-                   if (item.submenu) {
-                       return <SidebarSubMenu key={item.title} item={item} location={location} />;
-                   }
+                  if (item.submenu) {
+                    return <SidebarSubMenu key={item.title} item={item} location={location} />;
+                  }
 
-                  const isActive = item.exact 
-                    ? location.pathname === item.path 
+                  const isActive = item.exact
+                    ? location.pathname === item.path
                     : location.pathname.startsWith(item.path);
-                    
+
                   return (
                     <SidebarMenuItem key={item.path}>
                       <SidebarMenuButton asChild isActive={isActive} tooltip={item.title}>
@@ -189,7 +181,7 @@ export default function TenantLayout() {
                         </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
-                  )
+                  );
                 })}
               </SidebarMenu>
             </SidebarGroupContent>
@@ -240,20 +232,22 @@ export default function TenantLayout() {
               </BreadcrumbItem>
               {pathSegments.length > 0 && <BreadcrumbSeparator className="hidden md:block" />}
               {pathSegments.map((segment, index) => {
-                 const isLast = index === pathSegments.length - 1;
-                 const href = `/tenant/${pathSegments.slice(0, index + 1).join('/')}`;
-                 return (
-                   <div key={segment} className="flex items-center">
-                     <BreadcrumbItem>
-                       {isLast ? (
-                         <BreadcrumbPage className="capitalize">{segment}</BreadcrumbPage>
-                       ) : (
-                         <BreadcrumbLink href={href} className="capitalize">{segment}</BreadcrumbLink>
-                       )}
-                     </BreadcrumbItem>
-                     {!isLast && <BreadcrumbSeparator className="hidden md:block" />}
-                   </div>
-                 )
+                const isLast = index === pathSegments.length - 1;
+                const href = `/tenant/${pathSegments.slice(0, index + 1).join("/")}`;
+                return (
+                  <div key={segment} className="flex items-center">
+                    <BreadcrumbItem>
+                      {isLast ? (
+                        <BreadcrumbPage className="capitalize">{segment}</BreadcrumbPage>
+                      ) : (
+                        <BreadcrumbLink href={href} className="capitalize">
+                          {segment}
+                        </BreadcrumbLink>
+                      )}
+                    </BreadcrumbItem>
+                    {!isLast && <BreadcrumbSeparator className="hidden md:block" />}
+                  </div>
+                );
               })}
             </BreadcrumbList>
           </Breadcrumb>

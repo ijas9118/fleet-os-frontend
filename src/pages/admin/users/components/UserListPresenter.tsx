@@ -8,13 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 import type { User } from "./UserColumns";
 import { getUserListColumns } from "./UserColumns";
@@ -76,7 +70,6 @@ export function UserListPresenter({
   onConfirmModalChange,
   onConfirmAction,
 }: UserListPresenterProps) {
-  
   // Show error toast when error state changes
   useEffect(() => {
     if (error) {
@@ -96,11 +89,7 @@ export function UserListPresenter({
 
   const columns = useMemo(() => getUserListColumns({ onBlockUser, onUnblockUser }), [onBlockUser, onUnblockUser]);
 
-  const hasActiveFilters = 
-    roleFilter !== "all" || 
-    statusFilter !== "all" || 
-    tenantFilter !== "all" || 
-    search !== "";
+  const hasActiveFilters = roleFilter !== "all" || statusFilter !== "all" || tenantFilter !== "all" || search !== "";
 
   return (
     <>
@@ -117,7 +106,7 @@ export function UserListPresenter({
           <CardHeader>
             <CardTitle>All Users</CardTitle>
             <CardDescription>
-              {users.length} user{users.length !== 1 ? 's' : ''} found
+              {users.length} user{users.length !== 1 ? "s" : ""} found
             </CardDescription>
           </CardHeader>
           <CardContent className="relative">
@@ -126,10 +115,10 @@ export function UserListPresenter({
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
               </div>
             )}
-            
-            <DataTable 
-              columns={columns} 
-              data={users} 
+
+            <DataTable
+              columns={columns}
+              data={users}
               pagination={pagination}
               pageCount={pageCount}
               onPaginationChange={onPaginationChange}
@@ -138,12 +127,7 @@ export function UserListPresenter({
                   {/* Search Input */}
                   <div className="relative flex-1 max-w-xs">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      placeholder="Search users..."
-                      value={search}
-                      onChange={onSearchChange}
-                      className="pl-9"
-                    />
+                    <Input placeholder="Search users..." value={search} onChange={onSearchChange} className="pl-9" />
                   </div>
 
                   <div className="h-8 w-px bg-border" />
@@ -151,7 +135,7 @@ export function UserListPresenter({
                   {/* Filter Dropdowns */}
                   <div className="flex items-center gap-2">
                     <span className="text-sm text-muted-foreground font-medium">Filters:</span>
-                    
+
                     <div className="flex items-center gap-1.5 px-2 py-1 rounded-md border bg-background hover:bg-accent/50 transition-colors">
                       <UserCog className="h-3.5 w-3.5 text-muted-foreground" />
                       <Select value={roleFilter} onValueChange={onRoleFilterChange}>
@@ -201,12 +185,7 @@ export function UserListPresenter({
                   </div>
 
                   {hasActiveFilters && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={onClearFilters}
-                      className="h-8"
-                    >
+                    <Button variant="ghost" size="sm" onClick={onClearFilters} className="h-8">
                       <X className="h-3.5 w-3.5 mr-1" />
                       Clear
                     </Button>

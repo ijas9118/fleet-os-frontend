@@ -15,14 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { inventoryService } from "@/services/inventoryService";
 import type { Warehouse } from "@/types/warehouse";
@@ -79,12 +72,10 @@ export function EditWarehouseDialog({ warehouse, onWarehouseUpdated }: EditWareh
       toast.success("Warehouse updated successfully");
       setOpen(false);
       onWarehouseUpdated();
-    }
-    catch (error: unknown) {
+    } catch (error: unknown) {
       const message = error instanceof Error ? error.message : "Failed to update warehouse";
       toast.error(message);
-    }
-    finally {
+    } finally {
       setIsSubmitting(false);
     }
   };
@@ -113,7 +104,7 @@ export function EditWarehouseDialog({ warehouse, onWarehouseUpdated }: EditWareh
                 <div className="h-1 w-1 rounded-full bg-primary" />
                 <h3 className="text-lg font-semibold">Basic Information</h3>
               </div>
-              
+
               <div className="grid grid-cols-2 gap-6">
                 <FormField
                   control={form.control}
@@ -122,11 +113,7 @@ export function EditWarehouseDialog({ warehouse, onWarehouseUpdated }: EditWareh
                     <FormItem>
                       <FormLabel className="text-sm font-medium">Warehouse Name *</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="Main Distribution Center" 
-                          {...field}
-                          className="h-10"
-                        />
+                        <Input placeholder="Main Distribution Center" {...field} className="h-10" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -140,11 +127,7 @@ export function EditWarehouseDialog({ warehouse, onWarehouseUpdated }: EditWareh
                     <FormItem>
                       <FormLabel className="text-sm font-medium">Warehouse Code *</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="WH-001" 
-                          {...field}
-                          className="h-10"
-                        />
+                        <Input placeholder="WH-001" {...field} className="h-10" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -159,7 +142,7 @@ export function EditWarehouseDialog({ warehouse, onWarehouseUpdated }: EditWareh
                 <div className="h-1 w-1 rounded-full bg-primary" />
                 <h3 className="text-lg font-semibold">Address Information</h3>
               </div>
-              
+
               <FormField
                 control={form.control}
                 name="address.line1"
@@ -167,11 +150,7 @@ export function EditWarehouseDialog({ warehouse, onWarehouseUpdated }: EditWareh
                   <FormItem>
                     <FormLabel className="text-sm font-medium">Street Address *</FormLabel>
                     <FormControl>
-                      <Input 
-                        placeholder="123 Main Street, Building A" 
-                        {...field}
-                        className="h-10"
-                      />
+                      <Input placeholder="123 Main Street, Building A" {...field} className="h-10" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -186,11 +165,7 @@ export function EditWarehouseDialog({ warehouse, onWarehouseUpdated }: EditWareh
                     <FormItem>
                       <FormLabel className="text-sm font-medium">City *</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="Mumbai" 
-                          {...field}
-                          className="h-10"
-                        />
+                        <Input placeholder="Mumbai" {...field} className="h-10" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -204,11 +179,7 @@ export function EditWarehouseDialog({ warehouse, onWarehouseUpdated }: EditWareh
                     <FormItem>
                       <FormLabel className="text-sm font-medium">State / Province</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="Maharashtra" 
-                          {...field}
-                          className="h-10"
-                        />
+                        <Input placeholder="Maharashtra" {...field} className="h-10" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -224,11 +195,7 @@ export function EditWarehouseDialog({ warehouse, onWarehouseUpdated }: EditWareh
                     <FormItem>
                       <FormLabel className="text-sm font-medium">Postal Code</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="400001" 
-                          {...field}
-                          className="h-10"
-                        />
+                        <Input placeholder="400001" {...field} className="h-10" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -242,11 +209,7 @@ export function EditWarehouseDialog({ warehouse, onWarehouseUpdated }: EditWareh
                     <FormItem>
                       <FormLabel className="text-sm font-medium">Country *</FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="India" 
-                          {...field}
-                          className="h-10"
-                        />
+                        <Input placeholder="India" {...field} className="h-10" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -270,10 +233,10 @@ export function EditWarehouseDialog({ warehouse, onWarehouseUpdated }: EditWareh
                     <FormItem>
                       <FormLabel className="text-sm font-medium">Latitude</FormLabel>
                       <FormControl>
-                        <Input 
-                          type="number" 
+                        <Input
+                          type="number"
                           step="any"
-                          placeholder="12.9716" 
+                          placeholder="12.9716"
                           {...field}
                           onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                           className="h-10 font-mono"
@@ -291,10 +254,10 @@ export function EditWarehouseDialog({ warehouse, onWarehouseUpdated }: EditWareh
                     <FormItem>
                       <FormLabel className="text-sm font-medium">Longitude</FormLabel>
                       <FormControl>
-                        <Input 
-                          type="number" 
+                        <Input
+                          type="number"
                           step="any"
-                          placeholder="77.5946" 
+                          placeholder="77.5946"
                           {...field}
                           onChange={(e) => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                           className="h-10 font-mono"
@@ -308,12 +271,7 @@ export function EditWarehouseDialog({ warehouse, onWarehouseUpdated }: EditWareh
             </div>
 
             <DialogFooter className="gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => setOpen(false)}
-                disabled={isSubmitting}
-              >
+              <Button type="button" variant="outline" onClick={() => setOpen(false)} disabled={isSubmitting}>
                 Cancel
               </Button>
               <Button type="submit" disabled={isSubmitting}>

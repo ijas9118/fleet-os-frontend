@@ -1,21 +1,17 @@
-import { Eye, EyeOff } from "lucide-react"
-import * as React from "react"
+import { Eye, EyeOff } from "lucide-react";
+import * as React from "react";
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 function PasswordInput({ className, ...props }: React.ComponentProps<"input">) {
-  const [showPassword, setShowPassword] = React.useState(false)
-  const disabled = props.value === "" || props.value === undefined || props.disabled
+  const [showPassword, setShowPassword] = React.useState(false);
+  const disabled = props.value === "" || props.value === undefined || props.disabled;
 
   return (
     <div className="relative">
-      <Input
-        type={showPassword ? "text" : "password"}
-        className={cn("pr-10", className)} 
-        {...props}
-      />
+      <Input type={showPassword ? "text" : "password"} className={cn("pr-10", className)} {...props} />
       <Button
         type="button"
         variant="ghost"
@@ -33,7 +29,7 @@ function PasswordInput({ className, ...props }: React.ComponentProps<"input">) {
         )}
       </Button>
     </div>
-  )
+  );
 }
 
-export { PasswordInput }
+export { PasswordInput };

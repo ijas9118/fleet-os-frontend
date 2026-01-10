@@ -46,13 +46,13 @@ export default function RegisterTenantPage() {
           city: data.city,
           state: data.state,
           postalCode: data.postalCode,
-          country: data.country
-        }
+          country: data.country,
+        },
       };
 
       await authService.registerTenant(apiPayload);
       // Redirect to OTP verification passing email and type
-      navigate("/auth/verify-otp", { state: { email: data.contactEmail, type: 'tenant' } });
+      navigate("/auth/verify-otp", { state: { email: data.contactEmail, type: "tenant" } });
     } catch (err) {
       const error = err as { response?: { data?: { message?: string } } };
       setError(error.response?.data?.message || "Registration failed. Please try again.");
@@ -85,7 +85,7 @@ export default function RegisterTenantPage() {
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={form.control}
               name="contactEmail"
@@ -101,7 +101,7 @@ export default function RegisterTenantPage() {
             />
 
             <div className="grid grid-cols-2 gap-4">
-               <FormField
+              <FormField
                 control={form.control}
                 name="industry"
                 render={({ field }) => (
@@ -128,8 +128,8 @@ export default function RegisterTenantPage() {
                 )}
               />
             </div>
-             
-             {/* Address Section - Optional */}
+
+            {/* Address Section - Optional */}
             <div className="space-y-2">
               <span className="text-sm font-medium">Headquarters Address (Optional)</span>
               <FormField
@@ -145,7 +145,7 @@ export default function RegisterTenantPage() {
                 )}
               />
               <div className="grid grid-cols-2 gap-2">
-                 <FormField
+                <FormField
                   control={form.control}
                   name="city"
                   render={({ field }) => (
@@ -156,7 +156,7 @@ export default function RegisterTenantPage() {
                     </FormItem>
                   )}
                 />
-                 <FormField
+                <FormField
                   control={form.control}
                   name="state"
                   render={({ field }) => (
@@ -167,7 +167,7 @@ export default function RegisterTenantPage() {
                     </FormItem>
                   )}
                 />
-                 <FormField
+                <FormField
                   control={form.control}
                   name="country"
                   render={({ field }) => (
@@ -178,7 +178,7 @@ export default function RegisterTenantPage() {
                     </FormItem>
                   )}
                 />
-                 <FormField
+                <FormField
                   control={form.control}
                   name="postalCode"
                   render={({ field }) => (
