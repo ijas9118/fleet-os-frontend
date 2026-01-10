@@ -15,6 +15,8 @@ import RegisterTenantPage from "@/pages/auth/RegisterTenantPage";
 import VerifyOtpPage from "@/pages/auth/VerifyOtpPage";
 import InventoryItemDetail from "@/pages/dashboard/inventory-items/InventoryItemDetail";
 import InventoryItemList from "@/pages/dashboard/inventory-items/InventoryItemList";
+import StockTransactionDetail from "@/pages/dashboard/stock-transactions/StockTransactionDetail";
+import StockTransactionList from "@/pages/dashboard/stock-transactions/StockTransactionList";
 import StockDetail from "@/pages/dashboard/stocks/StockDetail";
 import StockList from "@/pages/dashboard/stocks/StockList";
 import TenantDashboard from "@/pages/dashboard/TenantDashboard";
@@ -49,12 +51,13 @@ export const AppRoutes = () => {
           <Route path="inventory-items/:id" element={<InventoryItemDetail />} />
           <Route path="stocks" element={<StockList />} />
           <Route path="stocks/:id" element={<StockDetail />} />
+          <Route path="stock-transactions" element={<StockTransactionList />} />
+          <Route path="stock-transactions/:id" element={<StockTransactionDetail />} />
           {/* Placeholders for other routes */}
           <Route path="shipments" element={<div>Shipments</div>} />
           <Route path="ops-managers" element={<div>Ops Managers</div>} />
-          <Route path="warehouse-managers" element={<div>Warehouse Managers</div>} />
-          <Route path="fleet/drivers" element={<div>Drivers</div>} />
-          <Route path="fleet/vehicles" element={<div>Vehicles</div>} />
+          <Route path="drivers" element={<div>Drivers</div>} />
+          <Route path="vehicles" element={<div>Vehicles</div>} />
           <Route path="settings" element={<div>Settings</div>} />
         </Route>
       </Route>

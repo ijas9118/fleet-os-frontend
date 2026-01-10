@@ -102,7 +102,16 @@ export default function TenantLayout() {
     {
       title: "Stock Management",
       icon: Clipboard,
-      path: "/tenant/stocks",
+      submenu: [
+        {
+          title: "Stock Levels",
+          path: "/tenant/stocks",
+        },
+        {
+          title: "Transactions",
+          path: "/tenant/stock-transactions",
+        },
+      ],
     },
     {
       title: "Shipments",
@@ -113,24 +122,18 @@ export default function TenantLayout() {
       title: "Ops Managers",
       icon: Users2,
       path: "/tenant/ops-managers",
-    },
-    {
-      title: "Warehouse Managers",
-      icon: Users2,
-      path: "/tenant/warehouse-managers",
-    },
+    },   
     {
       title: "Fleet",
       icon: Truck,
-      path: "/tenant/fleet",
       submenu: [
         {
           title: "Drivers",
-          path: "/tenant/fleet/drivers",
+          path: "/tenant/drivers",
         },
         {
           title: "Vehicles",
-          path: "/tenant/fleet/vehicles",
+          path: "/tenant/vehicles",
         },
       ],
     },
