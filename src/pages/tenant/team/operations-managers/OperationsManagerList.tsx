@@ -31,6 +31,11 @@ export default function OperationsManagerList() {
     loading: false,
   });
 
+  const [inviteModal, setInviteModal] = useState({
+    open: false,
+    loading: false,
+  });
+
   const fetchOperationsManagers = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -132,6 +137,26 @@ export default function OperationsManagerList() {
     }
   };
 
+  const handleInviteUser = async (data: { name: string; email: string }) => {
+    setInviteModal((prev) => ({ ...prev, loading: true }));
+
+    try {
+      await authService.inviteUser({
+        name: data.name,
+        email: data.email,
+        role: "OPERATIONS_MANAGER",
+      });
+
+      setInviteModal({ open: false, loading: false });
+      fetchOperationsManagers();
+      return { success: true, email: data.email };
+    } catch (error: unknown) {
+      setInviteModal((prev) => ({ ...prev, loading: false }));
+      const message = error instanceof Error ? error.message : "Failed to send invitation";
+      return { success: false, error: message };
+    }
+  };
+
   return (
     <OperationsManagerListPresenter
       users={users}
@@ -150,6 +175,9 @@ export default function OperationsManagerList() {
       confirmModal={confirmModal}
       onConfirmModalChange={(open) => setConfirmModal((prev) => ({ ...prev, open }))}
       onConfirmAction={handleConfirmAction}
+      inviteModal={inviteModal}
+      onInviteModalChange={(open) => setInviteModal((prev) => ({ ...prev, open }))}
+      onInviteUser={handleInviteUser}
     />
   );
 }

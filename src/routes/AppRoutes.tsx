@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import AdminLayout from "@/layouts/AdminLayout";
 import { AuthLayout } from "@/layouts/AuthLayout";
 import { MainLayout } from "@/layouts/MainLayout";
+import OpsManagerLayout from "@/layouts/OpsManagerLayout";
 import TenantLayout from "@/layouts/TenantLayout";
 import DashboardOverview from "@/pages/admin/DashboardOverview";
 import TenantList from "@/pages/admin/tenants/TenantList";
@@ -13,17 +14,18 @@ import LoginPage from "@/pages/auth/LoginPage";
 import RegisterAdminPage from "@/pages/auth/RegisterAdminPage";
 import RegisterTenantPage from "@/pages/auth/RegisterTenantPage";
 import VerifyOtpPage from "@/pages/auth/VerifyOtpPage";
-import InventoryItemDetail from "@/pages/dashboard/inventory-items/InventoryItemDetail";
-import InventoryItemList from "@/pages/dashboard/inventory-items/InventoryItemList";
-import OperationsManagerList from "@/pages/dashboard/operations-managers/OperationsManagerList";
-import StockTransactionDetail from "@/pages/dashboard/stock-transactions/StockTransactionDetail";
-import StockTransactionList from "@/pages/dashboard/stock-transactions/StockTransactionList";
-import StockDetail from "@/pages/dashboard/stocks/StockDetail";
-import StockList from "@/pages/dashboard/stocks/StockList";
-import TenantDashboard from "@/pages/dashboard/TenantDashboard";
-import WarehouseDetail from "@/pages/dashboard/warehouses/WarehouseDetail";
-import WarehouseList from "@/pages/dashboard/warehouses/WarehouseList";
 import { LandingPage } from "@/pages/LandingPage";
+import OpsManagerDashboard from "@/pages/ops-manager/Dashboard";
+import TenantDashboard from "@/pages/tenant/Dashboard";
+import InventoryItemDetail from "@/pages/tenant/inventory/items/InventoryItemDetail";
+import InventoryItemList from "@/pages/tenant/inventory/items/InventoryItemList";
+import StockDetail from "@/pages/tenant/inventory/stocks/StockDetail";
+import StockList from "@/pages/tenant/inventory/stocks/StockList";
+import StockTransactionDetail from "@/pages/tenant/inventory/transactions/StockTransactionDetail";
+import StockTransactionList from "@/pages/tenant/inventory/transactions/StockTransactionList";
+import OperationsManagerList from "@/pages/tenant/team/operations-managers/OperationsManagerList";
+import WarehouseDetail from "@/pages/tenant/warehouses/WarehouseDetail";
+import WarehouseList from "@/pages/tenant/warehouses/WarehouseList";
 import { ProtectedRoute } from "@/routes/guards/ProtectedRoute";
 import { PublicRoute } from "@/routes/guards/PublicRoute";
 
@@ -60,6 +62,20 @@ export const AppRoutes = () => {
           <Route path="drivers" element={<div>Drivers</div>} />
           <Route path="vehicles" element={<div>Vehicles</div>} />
           <Route path="settings" element={<div>Settings</div>} />
+        </Route>
+      </Route>
+
+      <Route path="/ops-manager" element={<ProtectedRoute requiredRole="OPERATIONS_MANAGER" />}>
+        <Route element={<OpsManagerLayout />}>
+          <Route index element={<OpsManagerDashboard />} />
+          <Route
+            path="drivers"
+            element={<div className="text-center text-muted-foreground">Drivers management coming soon...</div>}
+          />
+          <Route
+            path="vehicles"
+            element={<div className="text-center text-muted-foreground">Vehicles management coming soon...</div>}
+          />
         </Route>
       </Route>
 

@@ -1,5 +1,5 @@
 import type { OnChangeFn, PaginationState } from "@tanstack/react-table";
-import { Search, ShieldCheck, X } from "lucide-react";
+import { Search, ShieldCheck, UserPlus, X } from "lucide-react";
 import { useEffect, useMemo } from "react";
 import { toast } from "sonner";
 
@@ -10,6 +10,7 @@ import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
+import { InviteOperationsManagerDialog } from "./InviteOperationsManagerDialog";
 import type { OperationsManager } from "./OperationsManagerColumns";
 import { getOperationsManagerColumns } from "./OperationsManagerColumns";
 
@@ -35,6 +36,15 @@ interface OperationsManagerListPresenterProps {
   };
   onConfirmModalChange: (open: boolean) => void;
   onConfirmAction: () => Promise<{ success: boolean; userName?: string; action?: string; error?: string }>;
+  inviteModal: {
+    open: boolean;
+    loading: boolean;
+  };
+  onInviteModalChange: (open: boolean) => void;
+  onInviteUser: (data: {
+    name: string;
+    email: string;
+  }) => Promise<{ success: boolean; email?: string; error?: string }>;
 }
 
 export function OperationsManagerListPresenter({
@@ -54,6 +64,9 @@ export function OperationsManagerListPresenter({
   confirmModal,
   onConfirmModalChange,
   onConfirmAction,
+  inviteModal,
+  onInviteModalChange,
+  onInviteUser,
 }: OperationsManagerListPresenterProps) {
   // Show error toast when error state changes
   useEffect(() => {
@@ -72,7 +85,19 @@ export function OperationsManagerListPresenter({
     }
   };
 
-  const columns = useMemo(() => getOperationsManagerColumns({ onBlockUser, onUnblockUser }), [onBlockUser, onUnblockUser]);
+  const handleInviteWithToast = async (data: { name: string; email: string }) => {
+    const result = await onInviteUser(data);
+    if (result.success) {
+      toast.success(`Invitation sent to ${result.email} successfully`);
+    } else {
+      toast.error(result.error || "Failed to send invitation");
+    }
+  };
+
+  const columns = useMemo(
+    () => getOperationsManagerColumns({ onBlockUser, onUnblockUser }),
+    [onBlockUser, onUnblockUser],
+  );
 
   const hasActiveFilters = statusFilter !== "all" || search !== "";
 
@@ -84,6 +109,10 @@ export function OperationsManagerListPresenter({
             <h2 className="text-3xl font-bold tracking-tight">Operations Managers</h2>
             <p className="text-muted-foreground">Manage operations managers and their access.</p>
           </div>
+          <Button onClick={() => onInviteModalChange(true)}>
+            <UserPlus className="h-4 w-4 mr-2" />
+            Invite Operations Manager
+          </Button>
         </div>
 
         <Card>
@@ -111,7 +140,12 @@ export function OperationsManagerListPresenter({
                   {/* Search Input */}
                   <div className="relative flex-1 max-w-xs">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input placeholder="Search by name or email..." value={search} onChange={onSearchChange} className="pl-9" />
+                    <Input
+                      placeholder="Search by name or email..."
+                      value={search}
+                      onChange={onSearchChange}
+                      className="pl-9"
+                    />
                   </div>
 
                   <div className="h-8 w-px bg-border" />
@@ -172,6 +206,13 @@ export function OperationsManagerListPresenter({
         variant={confirmModal.type === "block" ? "destructive" : "default"}
         onConfirm={handleConfirmWithToast}
         loading={confirmModal.loading}
+      />
+
+      <InviteOperationsManagerDialog
+        open={inviteModal.open}
+        onOpenChange={onInviteModalChange}
+        onSubmit={handleInviteWithToast}
+        loading={inviteModal.loading}
       />
     </>
   );

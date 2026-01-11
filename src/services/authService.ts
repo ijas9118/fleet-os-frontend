@@ -91,5 +91,8 @@ export const authService = {
   unblockOperationsManager: async (userId: string) => {
     return api.post("/operations-managers/unblock", { userId });
   },
-};
 
+  inviteUser: async (data: { name: string; email: string; role: string }) => {
+    return api.post("/auth/invite-user", data);
+  },
+};

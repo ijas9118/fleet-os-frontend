@@ -45,11 +45,18 @@ export function useLogin() {
           }),
         );
 
+        console.log("Login - Decoded role:", decoded.role);
         if (decoded.role === "PLATFORM_ADMIN") {
+          console.log("Navigating to /admin");
           navigate("/admin");
         } else if (decoded.role === "TENANT_ADMIN") {
+          console.log("Navigating to /tenant");
           navigate("/tenant");
+        } else if (decoded.role === "OPERATIONS_MANAGER") {
+          console.log("Navigating to /ops-manager");
+          navigate("/ops-manager");
         } else {
+          console.log("Navigating to /");
           navigate("/");
         }
       }
