@@ -79,4 +79,17 @@ export const authService = {
   unblockUser: async (userId: string) => {
     return api.post("/users/unblock", { userId });
   },
+
+  getOperationsManagers: async (params?: PaginationParams) => {
+    return api.get<{ result: PaginatedResult<UserResponse> }>("/operations-managers", { params });
+  },
+
+  blockOperationsManager: async (userId: string) => {
+    return api.post("/operations-managers/block", { userId });
+  },
+
+  unblockOperationsManager: async (userId: string) => {
+    return api.post("/operations-managers/unblock", { userId });
+  },
 };
+

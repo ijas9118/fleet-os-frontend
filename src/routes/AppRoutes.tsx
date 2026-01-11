@@ -15,6 +15,7 @@ import RegisterTenantPage from "@/pages/auth/RegisterTenantPage";
 import VerifyOtpPage from "@/pages/auth/VerifyOtpPage";
 import InventoryItemDetail from "@/pages/dashboard/inventory-items/InventoryItemDetail";
 import InventoryItemList from "@/pages/dashboard/inventory-items/InventoryItemList";
+import OperationsManagerList from "@/pages/dashboard/operations-managers/OperationsManagerList";
 import StockTransactionDetail from "@/pages/dashboard/stock-transactions/StockTransactionDetail";
 import StockTransactionList from "@/pages/dashboard/stock-transactions/StockTransactionList";
 import StockDetail from "@/pages/dashboard/stocks/StockDetail";
@@ -55,7 +56,7 @@ export const AppRoutes = () => {
           <Route path="stock-transactions/:id" element={<StockTransactionDetail />} />
           {/* Placeholders for other routes */}
           <Route path="shipments" element={<div>Shipments</div>} />
-          <Route path="ops-managers" element={<div>Ops Managers</div>} />
+          <Route path="ops-managers" element={<OperationsManagerList />} />
           <Route path="drivers" element={<div>Drivers</div>} />
           <Route path="vehicles" element={<div>Vehicles</div>} />
           <Route path="settings" element={<div>Settings</div>} />
