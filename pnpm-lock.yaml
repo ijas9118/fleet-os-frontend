@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@ahammedijas/fleet-os-shared':
-        specifier: ^1.2.2
-        version: 1.2.2
+        specifier: ^1.2.3
+        version: 1.2.3
       '@hookform/resolvers':
         specifier: ^5.2.2
         version: 5.2.2(react-hook-form@7.70.0(react@19.2.3))
@@ -165,8 +165,8 @@ importers:
 
 packages:
 
-  '@ahammedijas/fleet-os-shared@1.2.2':
-    resolution: {integrity: sha512-l3ujPxiOco0N235DqoqVaO/DNZJg2uX646J4X39mRkVIaqU4QdRj3zJALyXuILAJqkXt7e3RtiZHLH53uicEng==}
+  '@ahammedijas/fleet-os-shared@1.2.3':
+    resolution: {integrity: sha512-2lCPHCQWHTyg0Y7HN14oCHF0BezzEKbx37LlyRo5R4WrtoLQysHtzra6Wl5owwv4QYAomSWRTWVhbfd4HABphg==}
 
   '@babel/code-frame@7.27.1':
     resolution: {integrity: sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg==}
@@ -2590,7 +2590,7 @@ packages:
 
 snapshots:
 
-  '@ahammedijas/fleet-os-shared@1.2.2': {}
+  '@ahammedijas/fleet-os-shared@1.2.3': {}
 
   '@babel/code-frame@7.27.1':
     dependencies:

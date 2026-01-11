@@ -122,7 +122,7 @@ export default function TenantLayout() {
       title: "Ops Managers",
       icon: Users2,
       path: "/tenant/ops-managers",
-    },   
+    },
     {
       title: "Fleet",
       icon: Truck,
