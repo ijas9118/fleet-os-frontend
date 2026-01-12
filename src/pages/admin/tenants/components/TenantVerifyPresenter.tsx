@@ -1,5 +1,5 @@
 import type { OnChangeFn, PaginationState } from "@tanstack/react-table";
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { toast } from "sonner";
 
 import { ConfirmationModal } from "@/components/common/ConfirmationModal";
@@ -52,14 +52,17 @@ export function TenantVerifyPresenter({
     }
   }, [error]);
 
-  const handleApprove = async (tenant: PendingTenant) => {
-    const result = await onApprove(tenant);
-    if (result.success) {
-      toast.success(`${result.tenantName} has been approved successfully`);
-    } else {
-      toast.error(result.error || "Failed to approve tenant");
-    }
-  };
+  const handleApprove = useCallback(
+    async (tenant: PendingTenant) => {
+      const result = await onApprove(tenant);
+      if (result.success) {
+        toast.success(`${result.tenantName} has been approved successfully`);
+      } else {
+        toast.error(result.error || "Failed to approve tenant");
+      }
+    },
+    [onApprove],
+  );
 
   const handleRejectConfirm = async () => {
     const result = await onRejectConfirm();

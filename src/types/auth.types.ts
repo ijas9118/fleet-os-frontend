@@ -59,7 +59,7 @@ export interface VerifyOtpResponse {
 
 export interface RefreshTokenResponse {
   message: string;
-  tokens: {
+  data: {
     accessToken: string;
     refreshToken: string;
   };

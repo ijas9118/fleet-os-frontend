@@ -26,6 +26,7 @@ export function useLogin() {
           id?: string;
           tenantId?: string;
           tenantName?: string;
+          isOnboardingComplete?: boolean;
         }>(token);
 
         dispatch(
@@ -35,6 +36,7 @@ export function useLogin() {
               id: decoded.id,
               email: decoded.email,
               role: decoded.role,
+              isOnboardingComplete: decoded.isOnboardingComplete,
               tenant: decoded.tenantId
                 ? {
                     id: decoded.tenantId,
@@ -55,6 +57,14 @@ export function useLogin() {
         } else if (decoded.role === "OPERATIONS_MANAGER") {
           console.log("Navigating to /ops-manager");
           navigate("/ops-manager");
+        } else if (decoded.role === "DRIVER") {
+          console.log("Navigating to driver portal", { isOnboardingComplete: decoded.isOnboardingComplete });
+          // Redirect based on onboarding status
+          if (decoded.isOnboardingComplete) {
+            navigate("/driver");
+          } else {
+            navigate("/driver/onboarding");
+          }
         } else {
           console.log("Navigating to /");
           navigate("/");

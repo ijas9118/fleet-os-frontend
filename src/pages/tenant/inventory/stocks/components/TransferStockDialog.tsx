@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -43,7 +43,7 @@ export function TransferStockDialog({
   const [notes, setNotes] = useState("");
   const [referenceId, setReferenceId] = useState("");
 
-  const fetchWarehouses = async () => {
+  const fetchWarehouses = useCallback(async () => {
     try {
       const response = await inventoryService.getWarehouses({ page: 1, limit: 100 });
       // Filter out the source warehouse
@@ -52,13 +52,13 @@ export function TransferStockDialog({
       console.error("Failed to fetch warehouses:", error);
       toast.error("Failed to load destination warehouses");
     }
-  };
+  }, [sourceWarehouseId]);
 
   useEffect(() => {
     if (open) {
       fetchWarehouses();
     }
-  }, [open, sourceWarehouseId]);
+  }, [open, sourceWarehouseId, fetchWarehouses]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

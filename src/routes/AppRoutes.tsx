@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 
 import AdminLayout from "@/layouts/AdminLayout";
 import { AuthLayout } from "@/layouts/AuthLayout";
+import DriverLayout from "@/layouts/DriverLayout";
 import { MainLayout } from "@/layouts/MainLayout";
 import OpsManagerLayout from "@/layouts/OpsManagerLayout";
 import TenantLayout from "@/layouts/TenantLayout";
@@ -14,6 +15,8 @@ import LoginPage from "@/pages/auth/LoginPage";
 import RegisterAdminPage from "@/pages/auth/RegisterAdminPage";
 import RegisterTenantPage from "@/pages/auth/RegisterTenantPage";
 import VerifyOtpPage from "@/pages/auth/VerifyOtpPage";
+import DriverDashboard from "@/pages/driver/DriverDashboard";
+import DriverOnboardingPage from "@/pages/driver/DriverOnboardingPage";
 import { LandingPage } from "@/pages/LandingPage";
 import OpsManagerDashboard from "@/pages/ops-manager/Dashboard";
 import TenantDashboard from "@/pages/tenant/Dashboard";
@@ -77,6 +80,27 @@ export const AppRoutes = () => {
             element={<div className="text-center text-muted-foreground">Vehicles management coming soon...</div>}
           />
         </Route>
+      </Route>
+
+      <Route path="/driver" element={<ProtectedRoute requiredRole="DRIVER" />}>
+        <Route element={<DriverLayout />}>
+          <Route index element={<DriverDashboard />} />
+          <Route path="trips" element={<div className="text-center text-muted-foreground">Trips coming soon...</div>} />
+          <Route
+            path="deliveries"
+            element={<div className="text-center text-muted-foreground">Deliveries coming soon...</div>}
+          />
+          <Route
+            path="schedule"
+            element={<div className="text-center text-muted-foreground">Schedule coming soon...</div>}
+          />
+          <Route
+            path="profile"
+            element={<div className="text-center text-muted-foreground">Profile coming soon...</div>}
+          />
+        </Route>
+        {/* Onboarding route outside the layout */}
+        <Route path="onboarding" element={<DriverOnboardingPage />} />
       </Route>
 
       <Route path="/auth" element={<PublicRoute />}>

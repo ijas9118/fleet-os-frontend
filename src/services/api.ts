@@ -50,6 +50,7 @@ api.interceptors.response.use(
             id?: string;
             tenantId?: string;
             tenantName?: string;
+            isOnboardingComplete?: boolean;
           }>(accessToken);
 
           store.dispatch(
@@ -59,6 +60,7 @@ api.interceptors.response.use(
                 id: decoded.id,
                 email: decoded.email,
                 role: decoded.role,
+                isOnboardingComplete: decoded.isOnboardingComplete,
                 tenant: decoded.tenantId
                   ? {
                       id: decoded.tenantId,

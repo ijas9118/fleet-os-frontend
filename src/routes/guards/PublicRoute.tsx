@@ -15,6 +15,14 @@ export const PublicRoute = () => {
     if (user?.role === "OPERATIONS_MANAGER") {
       return <Navigate to="/ops-manager" replace />;
     }
+    if (user?.role === "DRIVER") {
+      // Redirect driver based on onboarding status
+      return user?.isOnboardingComplete ? (
+        <Navigate to="/driver" replace />
+      ) : (
+        <Navigate to="/driver/onboarding" replace />
+      );
+    }
     return <Navigate to="/" replace />;
   }
 
