@@ -30,6 +30,7 @@ import DriverList from "@/pages/tenant/team/drivers/DriverList";
 import OperationsManagerList from "@/pages/tenant/team/operations-managers/OperationsManagerList";
 import WarehouseDetail from "@/pages/tenant/warehouses/WarehouseDetail";
 import WarehouseList from "@/pages/tenant/warehouses/WarehouseList";
+import VehicleList from "@/pages/tenant/fleet/vehicles/VehicleList";
 import { ProtectedRoute } from "@/routes/guards/ProtectedRoute";
 import { PublicRoute } from "@/routes/guards/PublicRoute";
 
@@ -60,11 +61,10 @@ export const AppRoutes = () => {
           <Route path="stocks/:id" element={<StockDetail />} />
           <Route path="stock-transactions" element={<StockTransactionList />} />
           <Route path="stock-transactions/:id" element={<StockTransactionDetail />} />
-          {/* Placeholders for other routes */}
           <Route path="shipments" element={<div>Shipments</div>} />
           <Route path="ops-managers" element={<OperationsManagerList />} />
           <Route path="drivers" element={<DriverList />} />
-          <Route path="vehicles" element={<div>Vehicles</div>} />
+          <Route path="vehicles" element={<VehicleList />} />
           <Route path="settings" element={<div>Settings</div>} />
         </Route>
       </Route>
