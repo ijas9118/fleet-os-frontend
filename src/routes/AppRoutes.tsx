@@ -27,6 +27,7 @@ import StockList from "@/pages/tenant/inventory/stocks/StockList";
 import StockTransactionDetail from "@/pages/tenant/inventory/transactions/StockTransactionDetail";
 import StockTransactionList from "@/pages/tenant/inventory/transactions/StockTransactionList";
 import OperationsManagerList from "@/pages/tenant/team/operations-managers/OperationsManagerList";
+import DriverList from "@/pages/tenant/team/drivers/DriverList";
 import WarehouseDetail from "@/pages/tenant/warehouses/WarehouseDetail";
 import WarehouseList from "@/pages/tenant/warehouses/WarehouseList";
 import { ProtectedRoute } from "@/routes/guards/ProtectedRoute";
@@ -62,7 +63,7 @@ export const AppRoutes = () => {
           {/* Placeholders for other routes */}
           <Route path="shipments" element={<div>Shipments</div>} />
           <Route path="ops-managers" element={<OperationsManagerList />} />
-          <Route path="drivers" element={<div>Drivers</div>} />
+          <Route path="drivers" element={<DriverList />} />
           <Route path="vehicles" element={<div>Vehicles</div>} />
           <Route path="settings" element={<div>Settings</div>} />
         </Route>

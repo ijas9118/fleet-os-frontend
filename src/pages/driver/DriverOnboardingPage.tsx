@@ -101,9 +101,9 @@ export default function DriverOnboardingPage() {
       }
     } catch (error: unknown) {
       const errorMessage =
-        (error as Record<string, unknown>)?.response?.data?.message ||
+        ((error as any)?.response?.data?.message as string) ||
         "Failed to complete onboarding. Please try again.";
-      toast.error(String(errorMessage));
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }

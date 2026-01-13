@@ -95,4 +95,16 @@ export const authService = {
   inviteUser: async (data: { name: string; email: string; role: string }) => {
     return api.post("/auth/invite-user", data);
   },
+
+  getDrivers: async (params?: PaginationParams) => {
+    return api.get<{ result: PaginatedResult<UserResponse> }>("/drivers", { params });
+  },
+
+  blockDriver: async (userId: string) => {
+    return api.post("/drivers/block", { userId });
+  },
+
+  unblockDriver: async (userId: string) => {
+    return api.post("/drivers/unblock", { userId });
+  },
 };

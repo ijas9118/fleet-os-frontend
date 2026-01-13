@@ -93,6 +93,18 @@ export interface UserResponse {
   lastLoginAt?: string;
 }
 
+export interface DriverListItem {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  tenantId?: string;
+  isActive: boolean;
+  createdAt: string;
+  lastLoginAt?: string;
+}
+
+
 export interface PaginationParams {
   page?: number;
   limit?: number;
@@ -100,7 +112,9 @@ export interface PaginationParams {
   role?: string;
   tenantId?: string;
   isActive?: string;
+  status?: string;
 }
+
 
 export interface PaginatedResult<T> {
   data: T[];
