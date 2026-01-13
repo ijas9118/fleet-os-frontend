@@ -98,11 +98,6 @@ export default function VehicleList() {
     }
   };
 
-  const handleCreateVehicle = () => {
-    // TODO: Open create vehicle dialog/navigate to create page
-    console.log("Create vehicle clicked");
-  };
-
   return (
     <VehicleListPresenter
       vehicles={vehicles}
@@ -120,7 +115,7 @@ export default function VehicleList() {
       onClearFilters={handleClearFilters}
       onStatusUpdate={handleStatusUpdate}
       onArchiveVehicle={handleArchiveVehicle}
-      onCreateVehicle={handleCreateVehicle}
+      onVehicleCreated={fetchVehicles}
     />
   );
 }

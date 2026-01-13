@@ -1,18 +1,17 @@
 import { VehicleStatus, VehicleType } from "@ahammedijas/fleet-os-shared";
 import type { OnChangeFn, PaginationState } from "@tanstack/react-table";
-import { Plus } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 import { ConfirmationModal } from "@/components/common/ConfirmationModal";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import type { Vehicle } from "@/types/vehicle.types";
 
+import { CreateVehicleDialog } from "./CreateVehicleDialog";
 import { getVehicleColumns } from "./VehicleColumns";
 
 interface VehicleListPresenterProps {
@@ -31,7 +30,7 @@ interface VehicleListPresenterProps {
   onClearFilters: () => void;
   onStatusUpdate: (vehicleId: string, newStatus: VehicleStatus) => Promise<{ success: boolean; error?: string }>;
   onArchiveVehicle: (vehicleId: string) => Promise<{ success: boolean; error?: string }>;
-  onCreateVehicle: () => void;
+  onVehicleCreated: () => void;
 }
 
 const STATUS_OPTIONS = [
@@ -67,7 +66,7 @@ export function VehicleListPresenter({
   onClearFilters,
   onStatusUpdate,
   onArchiveVehicle,
-  onCreateVehicle,
+  onVehicleCreated,
 }: VehicleListPresenterProps) {
   const [confirmDialog, setConfirmDialog] = useState<{
     open: boolean;
@@ -153,7 +152,7 @@ export function VehicleListPresenter({
     () =>
       getVehicleColumns({
         onStatusChange: handleStatusChange,
-        onViewDetails: (id) => navigate(`/tenant/fleet/vehicles/${id}`),
+        onViewDetails: (id) => navigate(`/tenant/vehicles/${id}`),
         onArchiveVehicle: handleArchiveClick,
       }),
     [navigate],
@@ -169,10 +168,7 @@ export function VehicleListPresenter({
             <h2 className="text-3xl font-bold tracking-tight">Vehicles</h2>
             <p className="text-muted-foreground">Manage your fleet vehicles.</p>
           </div>
-          <Button onClick={onCreateVehicle}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Vehicle
-          </Button>
+          <CreateVehicleDialog onVehicleCreated={onVehicleCreated} />
         </div>
 
         <Card>

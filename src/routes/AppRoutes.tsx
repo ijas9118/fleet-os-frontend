@@ -20,6 +20,8 @@ import DriverOnboardingPage from "@/pages/driver/DriverOnboardingPage";
 import { LandingPage } from "@/pages/LandingPage";
 import OpsManagerDashboard from "@/pages/ops-manager/Dashboard";
 import TenantDashboard from "@/pages/tenant/Dashboard";
+import VehicleDetail from "@/pages/tenant/fleet/VehicleDetail";
+import VehicleList from "@/pages/tenant/fleet/VehicleList";
 import InventoryItemDetail from "@/pages/tenant/inventory/items/InventoryItemDetail";
 import InventoryItemList from "@/pages/tenant/inventory/items/InventoryItemList";
 import StockDetail from "@/pages/tenant/inventory/stocks/StockDetail";
@@ -30,7 +32,6 @@ import DriverList from "@/pages/tenant/team/drivers/DriverList";
 import OperationsManagerList from "@/pages/tenant/team/operations-managers/OperationsManagerList";
 import WarehouseDetail from "@/pages/tenant/warehouses/WarehouseDetail";
 import WarehouseList from "@/pages/tenant/warehouses/WarehouseList";
-import VehicleList from "@/pages/tenant/fleet/vehicles/VehicleList";
 import { ProtectedRoute } from "@/routes/guards/ProtectedRoute";
 import { PublicRoute } from "@/routes/guards/PublicRoute";
 
@@ -65,6 +66,7 @@ export const AppRoutes = () => {
           <Route path="ops-managers" element={<OperationsManagerList />} />
           <Route path="drivers" element={<DriverList />} />
           <Route path="vehicles" element={<VehicleList />} />
+          <Route path="vehicles/:id" element={<VehicleDetail />} />
           <Route path="settings" element={<div>Settings</div>} />
         </Route>
       </Route>
