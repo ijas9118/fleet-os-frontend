@@ -1,4 +1,4 @@
-import { LogOut, Truck, Users2 } from "lucide-react";
+import { LogOut, Truck, Users2, Wrench } from "lucide-react";
 import { useSelector } from "react-redux";
 import { Link, Outlet, useLocation } from "react-router-dom";
 
@@ -45,6 +45,11 @@ export default function OpsManagerLayout() {
       title: "Drivers",
       icon: Users2,
       path: "/ops-manager/drivers",
+    },
+    {
+      title: "Maintenance",
+      icon: Wrench,
+      path: "/ops-manager/maintenance",
     },
     {
       title: "Vehicles",

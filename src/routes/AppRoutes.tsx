@@ -20,6 +20,8 @@ import DriverOnboardingPage from "@/pages/driver/DriverOnboardingPage";
 import { LandingPage } from "@/pages/LandingPage";
 import OpsManagerDashboard from "@/pages/ops-manager/Dashboard";
 import OpsManagerDriverList from "@/pages/ops-manager/drivers/OpsManagerDriverList";
+import OpsManagerMaintenanceList from "@/pages/ops-manager/maintenance/OpsManagerMaintenanceList";
+import OpsManagerVehicleDetail from "@/pages/ops-manager/vehicles/OpsManagerVehicleDetail";
 import OpsManagerVehicleList from "@/pages/ops-manager/vehicles/OpsManagerVehicleList";
 import TenantDashboard from "@/pages/tenant/Dashboard";
 import VehicleDetail from "@/pages/tenant/fleet/VehicleDetail";
@@ -77,7 +79,9 @@ export const AppRoutes = () => {
         <Route element={<OpsManagerLayout />}>
           <Route index element={<OpsManagerDashboard />} />
           <Route path="drivers" element={<OpsManagerDriverList />} />
+          <Route path="maintenance" element={<OpsManagerMaintenanceList />} />
           <Route path="vehicles" element={<OpsManagerVehicleList />} />
+          <Route path="vehicles/:id" element={<OpsManagerVehicleDetail />} />
         </Route>
       </Route>
 

@@ -42,4 +42,11 @@ export const maintenanceService = {
   completeMaintenance: async (maintenanceId: string, data: CompleteMaintenanceFormData) => {
     return api.patch(`/fleet/maintenance/${maintenanceId}/complete`, data);
   },
+
+  /**
+   * Update maintenance status
+   */
+  updateMaintenanceStatus: async (maintenanceId: string, status: string) => {
+    return api.patch(`/fleet/maintenance/${maintenanceId}/status`, { status });
+  },
 };

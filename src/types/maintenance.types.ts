@@ -27,12 +27,14 @@ export interface GetMaintenanceRecordsParams {
 
 export interface MaintenanceRecordsResponse {
   message: string;
-  data: MaintenanceRecord[];
-  meta: {
-    page: number;
-    limit: number;
-    total: number;
-    totalPages: number;
+  data: {
+    data: MaintenanceRecord[];
+    meta: {
+      page: number;
+      limit: number;
+      total: number;
+      totalPages: number;
+    };
   };
 }
 

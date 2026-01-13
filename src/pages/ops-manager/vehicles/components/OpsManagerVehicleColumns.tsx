@@ -60,11 +60,15 @@ export const getOpsManagerVehicleColumns = ({
       header: "Registration",
       cell: ({ row }) => {
         const type = row.original.type;
+        const vehicleId = row.original.id;
         return (
-          <div className="flex items-center gap-2 font-medium">
+          <button
+            onClick={() => onViewDetails(vehicleId)}
+            className="flex items-center gap-2 font-medium hover:underline hover:text-primary transition-colors text-left"
+          >
             {getTypeIcon(type)}
             <span>{row.getValue("registrationNumber")}</span>
-          </div>
+          </button>
         );
       },
     },
