@@ -15,6 +15,7 @@ import type { Vehicle } from "@/types/vehicle.types";
 
 import { AssignDriverDialog } from "./AssignDriverDialog";
 import { getOpsManagerVehicleColumns } from "./OpsManagerVehicleColumns";
+import { ScheduleMaintenanceDialog } from "./ScheduleMaintenanceDialog";
 
 interface OpsManagerVehicleListPresenterProps {
   vehicles: Vehicle[];
@@ -70,6 +71,21 @@ export function OpsManagerVehicleListPresenter({
     });
   }, []);
 
+  // State for schedule maintenance dialog
+  const [scheduleMaintenanceDialog, setScheduleMaintenanceDialog] = useState<{
+    open: boolean;
+    vehicleId: string;
+    vehicleRegistration: string;
+  }>({ open: false, vehicleId: "", vehicleRegistration: "" });
+
+  const handleScheduleMaintenanceClick = useCallback((vehicle: Vehicle) => {
+    setScheduleMaintenanceDialog({
+      open: true,
+      vehicleId: vehicle.id,
+      vehicleRegistration: vehicle.registrationNumber,
+    });
+  }, []);
+
   const handleUnassignClick = useCallback(
     async (vehicle: Vehicle) => {
       const result = await onUnassignVehicle(vehicle.id);
@@ -88,8 +104,9 @@ export function OpsManagerVehicleListPresenter({
         onViewDetails: (id) => navigate(`/ops-manager/vehicles/${id}`),
         onAssignDriver: handleAssignClick,
         onUnassignVehicle: handleUnassignClick,
+        onScheduleMaintenance: handleScheduleMaintenanceClick,
       }),
-    [navigate, handleAssignClick, handleUnassignClick],
+    [navigate, handleAssignClick, handleUnassignClick, handleScheduleMaintenanceClick],
   );
 
   const hasFilters = search || statusFilter !== "all" || typeFilter !== "all";
@@ -232,6 +249,18 @@ export function OpsManagerVehicleListPresenter({
         onSuccess={() => {
           onRefresh?.();
           setAssignDialog({ open: false, vehicleId: "", vehicleRegistration: "" });
+        }}
+      />
+
+      {/* Schedule Maintenance Dialog */}
+      <ScheduleMaintenanceDialog
+        open={scheduleMaintenanceDialog.open}
+        onOpenChange={(open) => setScheduleMaintenanceDialog((prev) => ({ ...prev, open }))}
+        vehicleId={scheduleMaintenanceDialog.vehicleId}
+        vehicleRegistration={scheduleMaintenanceDialog.vehicleRegistration}
+        onSuccess={() => {
+          onRefresh?.();
+          setScheduleMaintenanceDialog({ open: false, vehicleId: "", vehicleRegistration: "" });
         }}
       />
     </div>

@@ -45,12 +45,14 @@ interface OpsManagerVehicleColumnsProps {
   onViewDetails: (vehicleId: string) => void;
   onAssignDriver: (vehicle: Vehicle) => void;
   onUnassignVehicle: (vehicle: Vehicle) => void;
+  onScheduleMaintenance: (vehicle: Vehicle) => void;
 }
 
 export const getOpsManagerVehicleColumns = ({
   onViewDetails,
   onAssignDriver,
   onUnassignVehicle,
+  onScheduleMaintenance,
 }: OpsManagerVehicleColumnsProps): ColumnDef<Vehicle>[] => {
   return [
     {
@@ -182,6 +184,24 @@ export const getOpsManagerVehicleColumns = ({
                     Unassign Driver
                   </DropdownMenuItem>
                 )}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => onScheduleMaintenance(vehicle)}>
+                  <svg
+                    className="mr-2 h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                    />
+                  </svg>
+                  Schedule Maintenance
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
