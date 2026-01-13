@@ -146,7 +146,6 @@ export function UserListPresenter({
                           <SelectItem value="all">All Roles</SelectItem>
                           <SelectItem value="TENANT_ADMIN">Tenant Admin</SelectItem>
                           <SelectItem value="OPERATIONS_MANAGER">Operations Manager</SelectItem>
-                          <SelectItem value="WAREHOUSE_MANAGER">Warehouse Manager</SelectItem>
                           <SelectItem value="DRIVER">Driver</SelectItem>
                         </SelectContent>
                       </Select>

@@ -24,14 +24,12 @@ export interface User {
 const roleLabels: Record<string, string> = {
   TENANT_ADMIN: "Tenant Admin",
   OPERATIONS_MANAGER: "Operations Manager",
-  WAREHOUSE_MANAGER: "Warehouse Manager",
   DRIVER: "Driver",
 };
 
 const roleColors: Record<string, string> = {
   TENANT_ADMIN: "bg-purple-100 text-purple-800",
   OPERATIONS_MANAGER: "bg-blue-100 text-blue-800",
-  WAREHOUSE_MANAGER: "bg-orange-100 text-orange-800",
   DRIVER: "bg-cyan-100 text-cyan-800",
 };
 
