@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useDebounce } from "@/hooks/useDebounce";
 import { maintenanceService } from "@/services/maintenanceService";
@@ -7,6 +8,7 @@ import type { MaintenanceRecord } from "@/types/maintenance.types";
 import { OpsManagerMaintenanceListPresenter } from "./components/OpsManagerMaintenanceListPresenter";
 
 export default function OpsManagerMaintenanceList() {
+  const navigate = useNavigate();
   const [maintenanceRecords, setMaintenanceRecords] = useState<MaintenanceRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState({
@@ -73,8 +75,7 @@ export default function OpsManagerMaintenanceList() {
   };
 
   const handleViewDetails = (maintenanceId: string) => {
-    console.log("View maintenance detail:", maintenanceId);
-    // TODO: Navigate to maintenance detail page when implemented
+    navigate(`/ops-manager/maintenance/${maintenanceId}`);
   };
 
   return (

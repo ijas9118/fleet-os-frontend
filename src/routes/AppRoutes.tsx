@@ -1,3 +1,4 @@
+import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import AdminLayout from "@/layouts/AdminLayout";
@@ -18,11 +19,14 @@ import VerifyOtpPage from "@/pages/auth/VerifyOtpPage";
 import DriverDashboard from "@/pages/driver/DriverDashboard";
 import DriverOnboardingPage from "@/pages/driver/DriverOnboardingPage";
 import { LandingPage } from "@/pages/LandingPage";
-import OpsManagerDashboard from "@/pages/ops-manager/Dashboard";
-import OpsManagerDriverList from "@/pages/ops-manager/drivers/OpsManagerDriverList";
-import OpsManagerMaintenanceList from "@/pages/ops-manager/maintenance/OpsManagerMaintenanceList";
-import OpsManagerVehicleDetail from "@/pages/ops-manager/vehicles/OpsManagerVehicleDetail";
-import OpsManagerVehicleList from "@/pages/ops-manager/vehicles/OpsManagerVehicleList";
+
+const OpsManagerDashboard = lazy(() => import("@/pages/ops-manager/Dashboard"));
+const OpsManagerDriverList = lazy(() => import("@/pages/ops-manager/drivers/OpsManagerDriverList"));
+const OpsManagerMaintenanceList = lazy(() => import("@/pages/ops-manager/maintenance/OpsManagerMaintenanceList"));
+const OpsManagerMaintenanceDetail = lazy(() => import("@/pages/ops-manager/maintenance/OpsManagerMaintenanceDetail"));
+const OpsManagerVehicleDetail = lazy(() => import("@/pages/ops-manager/vehicles/OpsManagerVehicleDetail"));
+const OpsManagerVehicleList = lazy(() => import("@/pages/ops-manager/vehicles/OpsManagerVehicleList"));
+
 import TenantDashboard from "@/pages/tenant/Dashboard";
 import VehicleDetail from "@/pages/tenant/fleet/VehicleDetail";
 import VehicleList from "@/pages/tenant/fleet/VehicleList";
@@ -80,6 +84,7 @@ export const AppRoutes = () => {
           <Route index element={<OpsManagerDashboard />} />
           <Route path="drivers" element={<OpsManagerDriverList />} />
           <Route path="maintenance" element={<OpsManagerMaintenanceList />} />
+          <Route path="maintenance/:id" element={<OpsManagerMaintenanceDetail />} />
           <Route path="vehicles" element={<OpsManagerVehicleList />} />
           <Route path="vehicles/:id" element={<OpsManagerVehicleDetail />} />
         </Route>
