@@ -1,0 +1,50 @@
+
+> fleet-os-frontend@0.0.0 lint
+> eslint .
+
+
+/Users/ijas/Documents/Projects/fleetOS/services/fleet-os-frontend/src/pages/ops-manager/vehicles/OpsManagerVehicleList.tsx
+  45:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/ijas/Documents/Projects/fleetOS/services/fleet-os-frontend/src/pages/ops-manager/vehicles/OpsManagerVehicleList.tsx:45:5
+  43 |
+  44 |   useEffect(() => {
+> 45 |     fetchVehicles();
+     |     ^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  46 |   }, [fetchVehicles]);
+  47 |
+  48 |   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {  react-hooks/set-state-in-effect
+
+/Users/ijas/Documents/Projects/fleetOS/services/fleet-os-frontend/src/pages/ops-manager/vehicles/components/OpsManagerVehicleListPresenter.tsx
+  83:5  error    Compilation Skipped: Existing memoization could not be preserved
+
+React Compiler has skipped optimizing this component because the existing manual memoization could not be preserved. The inferred dependencies did not match the manually specified dependencies, which could cause the value to change more or less frequently than expected. The inferred dependency was `handleUnassignClick`, but the source dependencies were [navigate]. Inferred different dependency than source.
+
+/Users/ijas/Documents/Projects/fleetOS/services/fleet-os-frontend/src/pages/ops-manager/vehicles/components/OpsManagerVehicleListPresenter.tsx:83:5
+  81 |
+  82 |   const columns = useMemo(
+> 83 |     () =>
+     |     ^^^^^
+> 84 |       getOpsManagerVehicleColumns({
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 85 |         onViewDetails: (id) => navigate(`/ops-manager/vehicles/${id}`),
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 86 |         onAssignDriver: handleAssignClick,
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 87 |         onUnassignVehicle: handleUnassignClick,
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 88 |       }),
+     | ^^^^^^^^^ Could not preserve existing manual memoization
+  89 |     [navigate],
+  90 |   );
+  91 |  react-hooks/preserve-manual-memoization
+  89:5  warning  React Hook useMemo has a missing dependency: 'handleUnassignClick'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   react-hooks/exhaustive-deps
+
+✖ 3 problems (2 errors, 1 warning)
+

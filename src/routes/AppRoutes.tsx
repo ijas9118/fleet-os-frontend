@@ -19,6 +19,8 @@ import DriverDashboard from "@/pages/driver/DriverDashboard";
 import DriverOnboardingPage from "@/pages/driver/DriverOnboardingPage";
 import { LandingPage } from "@/pages/LandingPage";
 import OpsManagerDashboard from "@/pages/ops-manager/Dashboard";
+import OpsManagerDriverList from "@/pages/ops-manager/drivers/OpsManagerDriverList";
+import OpsManagerVehicleList from "@/pages/ops-manager/vehicles/OpsManagerVehicleList";
 import TenantDashboard from "@/pages/tenant/Dashboard";
 import VehicleDetail from "@/pages/tenant/fleet/VehicleDetail";
 import VehicleList from "@/pages/tenant/fleet/VehicleList";
@@ -74,14 +76,8 @@ export const AppRoutes = () => {
       <Route path="/ops-manager" element={<ProtectedRoute requiredRole="OPERATIONS_MANAGER" />}>
         <Route element={<OpsManagerLayout />}>
           <Route index element={<OpsManagerDashboard />} />
-          <Route
-            path="drivers"
-            element={<div className="text-center text-muted-foreground">Drivers management coming soon...</div>}
-          />
-          <Route
-            path="vehicles"
-            element={<div className="text-center text-muted-foreground">Vehicles management coming soon...</div>}
-          />
+          <Route path="drivers" element={<OpsManagerDriverList />} />
+          <Route path="vehicles" element={<OpsManagerVehicleList />} />
         </Route>
       </Route>
 
