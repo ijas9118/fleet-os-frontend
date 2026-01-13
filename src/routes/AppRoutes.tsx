@@ -36,6 +36,8 @@ import StockDetail from "@/pages/tenant/inventory/stocks/StockDetail";
 import StockList from "@/pages/tenant/inventory/stocks/StockList";
 import StockTransactionDetail from "@/pages/tenant/inventory/transactions/StockTransactionDetail";
 import StockTransactionList from "@/pages/tenant/inventory/transactions/StockTransactionList";
+import ShipmentDetail from "@/pages/tenant/shipments/ShipmentDetail";
+import ShipmentList from "@/pages/tenant/shipments/ShipmentList";
 import DriverList from "@/pages/tenant/team/drivers/DriverList";
 import OperationsManagerList from "@/pages/tenant/team/operations-managers/OperationsManagerList";
 import WarehouseDetail from "@/pages/tenant/warehouses/WarehouseDetail";
@@ -70,7 +72,8 @@ export const AppRoutes = () => {
           <Route path="stocks/:id" element={<StockDetail />} />
           <Route path="stock-transactions" element={<StockTransactionList />} />
           <Route path="stock-transactions/:id" element={<StockTransactionDetail />} />
-          <Route path="shipments" element={<div>Shipments</div>} />
+          <Route path="shipments" element={<ShipmentList />} />
+          <Route path="shipments/:id" element={<ShipmentDetail />} />
           <Route path="ops-managers" element={<OperationsManagerList />} />
           <Route path="drivers" element={<DriverList />} />
           <Route path="vehicles" element={<VehicleList />} />
