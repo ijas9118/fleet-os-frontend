@@ -28,6 +28,7 @@ interface ShipmentListPresenterProps {
   onSearchChange: (value: string) => void;
   onClearFilters: () => void;
   onShipmentCreated: () => void;
+  readOnlyMode?: boolean;
 }
 
 export function ShipmentListPresenter({
@@ -46,15 +47,16 @@ export function ShipmentListPresenter({
   onSearchChange,
   onClearFilters,
   onShipmentCreated,
+  readOnlyMode = false,
 }: ShipmentListPresenterProps) {
   const navigate = useNavigate();
 
   const columns = useMemo(
     () =>
       getShipmentColumns({
-        onViewDetails: (id) => navigate(`/tenant/shipments/${id}`),
+        onViewDetails: (id) => navigate(readOnlyMode ? `/ops-manager/shipments/${id}` : `/tenant/shipments/${id}`),
       }),
-    [navigate],
+    [navigate, readOnlyMode],
   );
 
   const hasActiveFilters = statusFilter || warehouseFilter || searchTerm;
@@ -75,7 +77,7 @@ export function ShipmentListPresenter({
           <h2 className="text-3xl font-bold tracking-tight">Shipment Management</h2>
           <p className="text-muted-foreground">Track and manage all shipments across your warehouses.</p>
         </div>
-        <CreateShipmentDialog onShipmentCreated={onShipmentCreated} />
+        {!readOnlyMode && <CreateShipmentDialog onShipmentCreated={onShipmentCreated} />}
       </div>
 
       <Card>

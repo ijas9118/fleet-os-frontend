@@ -24,6 +24,8 @@ const OpsManagerDashboard = lazy(() => import("@/pages/ops-manager/Dashboard"));
 const OpsManagerDriverList = lazy(() => import("@/pages/ops-manager/drivers/OpsManagerDriverList"));
 const OpsManagerMaintenanceList = lazy(() => import("@/pages/ops-manager/maintenance/OpsManagerMaintenanceList"));
 const OpsManagerMaintenanceDetail = lazy(() => import("@/pages/ops-manager/maintenance/OpsManagerMaintenanceDetail"));
+const OpsManagerShipmentList = lazy(() => import("@/pages/ops-manager/shipments/OpsManagerShipmentList"));
+const OpsManagerShipmentDetail = lazy(() => import("@/pages/ops-manager/shipments/OpsManagerShipmentDetail"));
 const OpsManagerVehicleDetail = lazy(() => import("@/pages/ops-manager/vehicles/OpsManagerVehicleDetail"));
 const OpsManagerVehicleList = lazy(() => import("@/pages/ops-manager/vehicles/OpsManagerVehicleList"));
 
@@ -86,6 +88,8 @@ export const AppRoutes = () => {
         <Route element={<OpsManagerLayout />}>
           <Route index element={<OpsManagerDashboard />} />
           <Route path="drivers" element={<OpsManagerDriverList />} />
+          <Route path="shipments" element={<OpsManagerShipmentList />} />
+          <Route path="shipments/:id" element={<OpsManagerShipmentDetail />} />
           <Route path="maintenance" element={<OpsManagerMaintenanceList />} />
           <Route path="maintenance/:id" element={<OpsManagerMaintenanceDetail />} />
           <Route path="vehicles" element={<OpsManagerVehicleList />} />
