@@ -29,12 +29,7 @@ interface InviteDriverDialogProps {
   loading: boolean;
 }
 
-export function InviteDriverDialog({
-  open,
-  onOpenChange,
-  onSubmit,
-  loading,
-}: InviteDriverDialogProps) {
+export function InviteDriverDialog({ open, onOpenChange, onSubmit, loading }: InviteDriverDialogProps) {
   const form = useForm<InviteFormValues>({
     resolver: zodResolver(inviteFormSchema),
     defaultValues: {

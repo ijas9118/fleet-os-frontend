@@ -27,10 +27,7 @@ interface ColumnsOptions {
   onUnblockDriver: (driver: Driver) => void;
 }
 
-export const getDriverColumns = ({
-  onBlockDriver,
-  onUnblockDriver,
-}: ColumnsOptions): ColumnDef<Driver>[] => [
+export const getDriverColumns = ({ onBlockDriver, onUnblockDriver }: ColumnsOptions): ColumnDef<Driver>[] => [
   {
     accessorKey: "name",
     header: "Driver",
@@ -110,7 +107,10 @@ export const getDriverColumns = ({
             <DropdownMenuSeparator />
             <DropdownMenuItem>View details</DropdownMenuItem>
             {driver.isActive ? (
-              <DropdownMenuItem className="text-destructive focus:text-destructive" onClick={() => onBlockDriver(driver)}>
+              <DropdownMenuItem
+                className="text-destructive focus:text-destructive"
+                onClick={() => onBlockDriver(driver)}
+              >
                 <Ban className="w-4 h-4 mr-2" />
                 Block driver
               </DropdownMenuItem>

@@ -94,10 +94,7 @@ export function DriverListPresenter({
     }
   };
 
-  const columns = useMemo(
-    () => getDriverColumns({ onBlockDriver, onUnblockDriver }),
-    [onBlockDriver, onUnblockDriver],
-  );
+  const columns = useMemo(() => getDriverColumns({ onBlockDriver, onUnblockDriver }), [onBlockDriver, onUnblockDriver]);
 
   const hasActiveFilters = statusFilter !== "all" || search !== "";
 

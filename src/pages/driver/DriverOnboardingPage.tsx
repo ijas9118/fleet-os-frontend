@@ -99,10 +99,8 @@ export default function DriverOnboardingPage() {
         toast.info("Please log in again to access your dashboard");
         navigate("/auth/login");
       }
-    } catch (error: unknown) {
-      const errorMessage =
-        ((error as any)?.response?.data?.message as string) ||
-        "Failed to complete onboarding. Please try again.";
+    } catch {
+      const errorMessage = "Failed to complete onboarding. Please try again.";
       toast.error(errorMessage);
     } finally {
       setIsLoading(false);
