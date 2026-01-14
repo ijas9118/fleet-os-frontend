@@ -43,4 +43,18 @@ export const shipmentService = {
   deleteShipment: async (shipmentId: string) => {
     return api.delete(`/shipments/${shipmentId}`);
   },
+
+  /**
+   * Assign shipment to driver
+   */
+  assignToDriver: async (shipmentId: string, driverId: string, driverName: string) => {
+    return api.post(`/shipments/${shipmentId}/assign-driver`, { driverId, driverName });
+  },
+
+  /**
+   * Update shipment status (for drivers)
+   */
+  updateStatus: async (shipmentId: string, newStatus: string, notes?: string) => {
+    return api.patch(`/shipments/${shipmentId}/status`, { newStatus, notes });
+  },
 };

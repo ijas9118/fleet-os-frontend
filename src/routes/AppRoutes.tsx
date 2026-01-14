@@ -18,6 +18,7 @@ import RegisterTenantPage from "@/pages/auth/RegisterTenantPage";
 import VerifyOtpPage from "@/pages/auth/VerifyOtpPage";
 import DriverDashboard from "@/pages/driver/DriverDashboard";
 import DriverOnboardingPage from "@/pages/driver/DriverOnboardingPage";
+import DriverShipments from "@/pages/driver/DriverShipments";
 import { LandingPage } from "@/pages/LandingPage";
 
 const OpsManagerDashboard = lazy(() => import("@/pages/ops-manager/Dashboard"));
@@ -100,15 +101,7 @@ export const AppRoutes = () => {
       <Route path="/driver" element={<ProtectedRoute requiredRole="DRIVER" />}>
         <Route element={<DriverLayout />}>
           <Route index element={<DriverDashboard />} />
-          <Route path="trips" element={<div className="text-center text-muted-foreground">Trips coming soon...</div>} />
-          <Route
-            path="deliveries"
-            element={<div className="text-center text-muted-foreground">Deliveries coming soon...</div>}
-          />
-          <Route
-            path="schedule"
-            element={<div className="text-center text-muted-foreground">Schedule coming soon...</div>}
-          />
+          <Route path="shipments" element={<DriverShipments />} />
           <Route
             path="profile"
             element={<div className="text-center text-muted-foreground">Profile coming soon...</div>}

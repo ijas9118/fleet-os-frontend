@@ -241,7 +241,7 @@ export function CreateShipmentDialog({ onShipmentCreated }: CreateShipmentDialog
                 <div className="space-y-3">
                   {fields.map((field, index) => (
                     <div key={field.id} className="flex items-start gap-3 p-3 border rounded-lg">
-                      <div className="flex-1 grid grid-cols-2 gap-3">
+                      <div className="flex-1 space-y-3">
                         <FormField
                           control={form.control}
                           name={`items.${index}.inventoryItemId`}

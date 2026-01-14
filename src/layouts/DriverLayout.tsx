@@ -1,4 +1,4 @@
-import { Calendar, LayoutDashboard, LogOut, Map, Package, User } from "lucide-react";
+import { LayoutDashboard, LogOut, Package, User } from "lucide-react";
 import { useSelector } from "react-redux";
 import { Link, Outlet, useLocation } from "react-router-dom";
 
@@ -48,19 +48,9 @@ export default function DriverLayout() {
       exact: true,
     },
     {
-      title: "My Trips",
-      icon: Map,
-      path: "/driver/trips",
-    },
-    {
-      title: "Deliveries",
+      title: "My Shipments",
       icon: Package,
-      path: "/driver/deliveries",
-    },
-    {
-      title: "Schedule",
-      icon: Calendar,
-      path: "/driver/schedule",
+      path: "/driver/shipments",
     },
     {
       title: "Profile",

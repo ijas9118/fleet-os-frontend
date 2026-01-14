@@ -1,16 +1,25 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { useDebounce } from "@/hooks/useDebounce";
+import { authService } from "@/services/authService";
 import { inventoryService } from "@/services/inventoryService";
 import { shipmentService } from "@/services/shipmentService";
+import type { UserResponse } from "@/types/auth.types";
 import type { ShipmentListItem } from "@/types/shipment";
 import type { Warehouse } from "@/types/warehouse";
 
-import { ShipmentListPresenter } from "../../tenant/shipments/components/ShipmentListPresenter";
+import { OpsManagerShipmentListPresenter } from "./OpsManagerShipmentListPresenter";
+
+interface Driver {
+  id: string;
+  name: string;
+  email: string;
+}
 
 export default function OpsManagerShipmentList() {
   const [shipments, setShipments] = useState<ShipmentListItem[]>([]);
   const [warehouses, setWarehouses] = useState<Warehouse[]>([]);
+  const [drivers, setDrivers] = useState<Driver[]>([]);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -34,6 +43,24 @@ export default function OpsManagerShipmentList() {
       }
     };
     fetchWarehouses();
+  }, []);
+
+  // Fetch drivers for assignment
+  useEffect(() => {
+    const fetchDrivers = async () => {
+      try {
+        const response = await authService.getDrivers({ page: 1, limit: 100, status: "active" });
+        const mappedDrivers: Driver[] = response.data.result.data.map((d: UserResponse) => ({
+          id: d.id,
+          name: d.name,
+          email: d.email,
+        }));
+        setDrivers(mappedDrivers);
+      } catch (err) {
+        console.error("Failed to fetch drivers:", err);
+      }
+    };
+    fetchDrivers();
   }, []);
 
   const fetchShipments = useCallback(async () => {
@@ -97,9 +124,10 @@ export default function OpsManagerShipmentList() {
   };
 
   return (
-    <ShipmentListPresenter
+    <OpsManagerShipmentListPresenter
       shipments={shipments}
       warehouses={warehouses}
+      drivers={drivers}
       loading={loading}
       error={error}
       pagination={pagination}

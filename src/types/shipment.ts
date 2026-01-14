@@ -8,6 +8,8 @@ export interface Shipment {
   customer: Customer;
   destinationAddress: Address;
   inventoryReservationId?: string;
+  driverId?: string;
+  driverName?: string;
   notes?: string;
   estimatedDeliveryDate?: Date;
   actualDeliveryDate?: Date;
@@ -49,6 +51,8 @@ export interface ShipmentListItem {
   destinationCity: string;
   destinationCountry: string;
   inventoryReservationId?: string;
+  driverId?: string;
+  driverName?: string;
   estimatedDeliveryDate?: Date;
   actualDeliveryDate?: Date;
   createdAt?: Date;
